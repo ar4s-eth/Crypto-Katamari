@@ -22,4 +22,13 @@ class playGame extends Phaser.Scene {
   }
 }
 
+fetch('https://api.opensea.io/wyvern/v1/orders?bundled=false&include_bundled=false&include_invalid=false&limit=1&offset=0&order_by=eth_price&order_direction=desc').then(function(response) {
+  return response.json();
+}).then(function(data) {
+  console.log(data);
+}).catch(function() {
+  console.log("Booo");
+});
+
+
 export default playGame;
