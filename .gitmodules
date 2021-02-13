@@ -1,0 +1,3 @@
+[submodule "src/apis/pooltogether-reference-pool-ui"]
+	path = src/apis/pooltogether-reference-pool-ui
+	url = git@github.com:pooltogether/pooltogether-reference-pool-ui.git
