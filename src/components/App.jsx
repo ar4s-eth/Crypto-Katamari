@@ -1,18 +1,21 @@
 import React from "react";
-// OG Code
-// export default class App extends React.Component {
-// 	render() {
-// 		return (
-// 			<div style={{ textAlign: "center" }}>
-// 				<h1>Hello World</h1>
-// 			</div>
-// 		);
-// 	}
-// }
+import PlayGame from "../phaser/scene";
+
+export const config = {
+	type: Phaser.AUTO,
+	parent: "phaser",
+	width: 1024,
+	height: 768,
+	scene: PlayGame,
+	// loader: { baseURL:}
+	};
+	const game = new Phaser.Game(config)
+
+	console.log(game)
 
 export default function App(props) {
-	console.log(props.katamari)
-	return (
-		<div>{props.katamari}</div>
-	)
+
+	
+	return game
+
 }
