@@ -8,25 +8,27 @@ import PlayGame from "./phaser/scene";
 // const obj = PlayGame.new(robot) 
 
 //console.log(App);
-// OG Code
+
+// Test code 
+
+// const config = {
+//   loader: {
+//           baseURL: 'game/media'
+//       },
+//   scene: [preloadScene, playGame]
+//   }
+
 export const config = {
   type: Phaser.AUTO,
   parent: "phaser",
   width: 1024,
   height: 768,
-  scene: PlayGame
+  scene: PlayGame,
+  // loader: { baseURL:}
 };
 
-// export const config = {
-//   type: Phaser.CANVAS,
-//   parent: "phaser",
-//   width: 800,
-//   height: 600,
-//   scene: PlayGame
-// };
-
 const game = new Phaser.Game(config);
-// game.create()
+
 ReactDOM.render(
   <App 
   katamari={game}
