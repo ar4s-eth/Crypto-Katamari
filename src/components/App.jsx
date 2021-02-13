@@ -8,14 +8,12 @@ export const config = {
 	height: 768,
 	scene: PlayGame,
 	// loader: { baseURL:}
-	};
-	const game = new Phaser.Game(config)
+};
 
-	console.log(game)
+const game = new Phaser.Game(config)
 
-export default function App(props) {
+console.log(game)
 
-	
-	return game
-
+export default function App(props) {	
+	return <div>{game.canvas}</div>
 }
