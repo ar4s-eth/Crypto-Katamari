@@ -6,10 +6,12 @@ import Katamari from "../scene/katamari";
 export const config = {
 	type: Phaser.AUTO,
 	parent: "phaser",
-	width: 1024,
-	height: 768,
+	width: 1920,
+	height: 1080,
 	scene: [ World ]
 };
+
+// Create the game instance
 
 const game = new Phaser.Game(config);
 
