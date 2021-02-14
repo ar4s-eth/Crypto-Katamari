@@ -84,7 +84,7 @@ export default class World extends Phaser.Scene {
     this.katamari
     
     // Create the katamari container && size it
-    this.katamari = this.add.container(height / 2, width / 2.1)
+    this.katamari = this.add.container(width * 0.4 , height * 0.8)
     this.katamari.setSize(600, 600)
 
     // Load the "kball"
