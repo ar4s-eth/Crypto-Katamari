@@ -8,6 +8,9 @@ export const config = {
 	parent: "phaser",
 	width: 1920,
 	height: 1080,
+	scale: { 
+		mode: Phaser.Scale.FIT , 
+		autoCenter: Phaser.Scale.CENTER_BOTH },
 	scene: [ World ]
 };
 
