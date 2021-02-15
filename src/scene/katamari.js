@@ -83,7 +83,7 @@ class Katamari extends Phaser.Scene {
       *BEHAVIOR*
       -The katamari moves forward more quickly when a deposit is made
       -When NFT's outside of the container touch the radius, include them at the coordinates they touch at.
-      
+      -NFT's drop out of passing clouds
       */
      
      // console.log(this.nft6)

@@ -1,0 +1,52 @@
+
+.universe {
+  position: absolute;
+
+}
+
+img#poolHUD {
+  margin: -45%;
+  color: black;
+  /* width: 100%;
+  height: 100%; */
+}
+
+.rotate {
+  animation: rotation 40s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+#pool_amount {
+  font-family: 'Rationale', sans-serif;
+  color: black;
+  text-shadow: 2px 2px white;
+  margin: 5% 10%;
+  font-size: 2.5em;
+  /* transform: scale(.5, 1.5); */
+}
+
+  #pool_amount eth {
+    font-size: 2em;
+  }
+
+  #pool_amount dai {
+    font-size: 1.5em;
+  }
+
+  #pool_amount nft {
+    font-size: 1em;
+  }
+
+  #pool_amount img {
+    width: 5%;
+    height: 5%;
+  }
+  
