@@ -29,7 +29,7 @@ const game = new Phaser.Game(config);
 export default function App(props) {	
 
 	return (
-		<div className='universe'>
+		<div className='universe katamari'>
 				<img src={kball} className='rotate' id='poolHUD'></img>
 				<h1 className='universe' id='pool_amount'>
 					<eth>28.8</eth><sym><img src={ethereum} alt='ETH'></img></sym>
