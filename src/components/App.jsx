@@ -18,6 +18,7 @@ export const config = {
 		mode: Phaser.Scale.FIT , 
 		autoCenter: Phaser.Scale.CENTER_BOTH },
 	scene: [ World ],
+	physics: { default: 'arcade', arcade:{debug:true}}
 };
 
 // Create the game instance

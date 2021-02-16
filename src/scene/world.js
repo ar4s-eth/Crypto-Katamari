@@ -8,6 +8,8 @@ import Phaser from 'phaser';
  * @param {number} scrollFactor 
  */
 
+//// World creation constants and multipliers
+
 // Create Parallax layers in a loop
 const createLoop = (scene, totalWidth, image, scrollFactor) => {
   
@@ -54,43 +56,15 @@ export default class World extends Phaser.Scene {
     this.load.image('ntf4', 'src/assets/sprites/img_nft4.png');
     this.load.image('ntf5', 'src/assets/sprites/gif_nft.gif');
     this.load.image('star', 'src/assets/sprites/img_nft6.png');
-
-
-    
     
   }
   
   
   create() {
     
-    let platforms
+    //// World Logic
 
-    // console.log(platforms)
-    //  We're going to be using physics, so enable the Arcade Physics system
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
-
-    // //  A simple background for our game
-    this.add.sprite(0, 0, 'star');
-
-    // //  The platforms group contains the ground and the 2 ledges we can jump on
-    this.platforms = this.add.group();
-
-    // //  We will enable physics for any object that is created in this group
-    this.platforms.enableBody = true;
-
-    // let ground;
-    // // Here we create the ground.
-    this.floor = this.platforms.create(0, this.height - 64, 'ground');
-
-    // //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    // this.floor.scale.setTo(2, 2);
-
-    // //  This stops it from falling away when you jump on it
-    // this.ground.body.immovable = true;
-
-
-
-    // Landscape
+    // Setup Landscape & world dimensions
     const width = this.scale.width;
     const height = this.scale.height;
     const totalWidth = width * 10 
@@ -98,7 +72,7 @@ export default class World extends Phaser.Scene {
     this.add.image(width * 0.5, height * 0.5, 'sky')
       .setScrollFactor(0)
 
-    // Create layers
+    // Create parallax layers
     createLoop(this, totalWidth, 'mountains', 0.25)
     createLoop(this, totalWidth, 'plateau', 0.5)
     createLoop(this, totalWidth, 'ground', 1)
@@ -107,27 +81,46 @@ export default class World extends Phaser.Scene {
     // Controls how far you can go 
     this.cameras.main.setBounds(0, 0, width * width, height)
 
+    //// Katamari Logic
 
-
-
-    // Katamari
-    // Initialize the katamari Object
+    // Initialize the katamari 
     this.katamari
     
     // Create the katamari container && size it
-    this.katamari = this.add.container(width * 0.4 , height * 0.8)
+    // this.katamari = this.add.container(width * 0.4 , height * 0.8)
+    this.katamari = this.add.container(width * 0.4, height * 0.8)
     this.katamari.setSize(600, 600)
 
-    // Load the "kball"
-    this.kball = this.add.image(0, 0, 'kball');
+    // Load the "kball" (no gravity)
+    // this.kball = this.add.image(0, 0, 'kball');
+
+    // Load the "kball" & add physics
+    this.kball = this.physics.add.image(0, 0, 'kball');
+
+    // if this is too high the katamari will fly off
+    this.kball.setGravityY(1)
+
+    this.groundX = this.sys.game.config.width / 2;
+    this.groundY = this.sys.game.config.height * 0.90;
+
+    this.ground = this.physics.add.image(this.groundX, this.groundY)
+    this.ground.setGravity(0)
     
+    this.ground.displayWidth=this.sys.game.config.width * 1.1;
+    
+    this.physics.add.collider(this.kball, this.ground)
+    
+    this.ground.setImmovable();
+
+
     // Add kball to Katamari container
     this.katamari.add(this.kball)
     
-    // Scale the kball to fit the container
+    // Scale the kball to the container
     this.kball.setScale(0.2)
     
-    // Create orbiting nft's
+
+    // // Create orbiting nft's
     this.nft1 = this.add.sprite(0, 50, 'nft1')
     this.nft1.setScale(0.5)
     
@@ -140,7 +133,7 @@ export default class World extends Phaser.Scene {
     this.nft5 = this.add.sprite(200, 200, 'nft5')
     this.nft5.setScale(1)
     
-    //Add them to the Katamari container
+    // Add them to the Katamari container
     this.katamari.add(this.nft1)
     this.katamari.add(this.nft2)
     this.katamari.add(this.nft3)
@@ -167,8 +160,8 @@ export default class World extends Phaser.Scene {
       const speed = 2
       // Landscape
       
-      const cam = this.cameras.main
-      cam.scrollX += speed
+      // const cam = this.cameras.main
+      // cam.scrollX += speed
       
       // Manually scroll through the world 
 
@@ -185,7 +178,7 @@ export default class World extends Phaser.Scene {
           
           // this.cameras.main.startFollow(this.katamari)
       this.katamari.rotation += 0.02
-      this.katamari.x += speed
+      // this.katamari.x += speed
     
       
       // this.katamari.scrollX += speed
