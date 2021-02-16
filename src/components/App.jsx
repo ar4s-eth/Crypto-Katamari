@@ -17,7 +17,7 @@ export const config = {
 	scale: { 
 		mode: Phaser.Scale.FIT , 
 		autoCenter: Phaser.Scale.CENTER_BOTH },
-	scene: [ World ]
+	scene: [ World ],
 };
 
 // Create the game instance

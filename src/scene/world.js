@@ -53,11 +53,42 @@ export default class World extends Phaser.Scene {
     this.load.image('nft3', 'src/assets/sprites/img_nft3.jpg');
     this.load.image('ntf4', 'src/assets/sprites/img_nft4.png');
     this.load.image('ntf5', 'src/assets/sprites/gif_nft.gif');
+    this.load.image('star', 'src/assets/sprites/img_nft6.png');
+
 
     
+    
   }
-
+  
+  
   create() {
+    
+    let platforms
+
+    // console.log(platforms)
+    //  We're going to be using physics, so enable the Arcade Physics system
+    // this.physics.startSystem(Phaser.Physics.ARCADE);
+
+    // //  A simple background for our game
+    this.add.sprite(0, 0, 'star');
+
+    // //  The platforms group contains the ground and the 2 ledges we can jump on
+    this.platforms = this.add.group();
+
+    // //  We will enable physics for any object that is created in this group
+    this.platforms.enableBody = true;
+
+    // let ground;
+    // // Here we create the ground.
+    this.floor = this.platforms.create(0, this.height - 64, 'ground');
+
+    // //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    // this.floor.scale.setTo(2, 2);
+
+    // //  This stops it from falling away when you jump on it
+    // this.ground.body.immovable = true;
+
+
 
     // Landscape
     const width = this.scale.width;
@@ -100,7 +131,7 @@ export default class World extends Phaser.Scene {
     this.nft1 = this.add.sprite(0, 50, 'nft1')
     this.nft1.setScale(0.5)
     
-    this.nft2 = this.add.sprite(50, 0, 'nft2')
+    this.nft2 = this.add.sprite(-50, 50, 'nft2')
     this.nft2.setScale(0.1)
     
     this.nft3 = this.add.sprite(-80, -50, 'nft3')
@@ -119,7 +150,7 @@ export default class World extends Phaser.Scene {
       this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
 
       this.load.once('complete', (x) => { 
-        this.nft6 = this.add.sprite(200, -200, 'nft6')
+        this.nft6 = this.add.sprite(-50, 80, 'nft6')
         this.nft6.setScale(0.5)
         this.katamari.add(this.nft6)   
         // console.log(`from load once`, x)
