@@ -9,6 +9,7 @@ import opensea from '../assets/icons/opensea_icon.png'
 import ethereum from '../assets/icons/eth_icon.svg'
 import dai from '../assets/icons/dai_icon.svg'
 
+// Game settings
 export const config = {
 	type: Phaser.AUTO,
 	parent: "phaser",
@@ -22,18 +23,20 @@ export const config = {
 };
 
 // Create the game instance
-
 const game = new Phaser.Game(config);
 
 // console.log(game)
 
 export default function App(props) {	
 
+	console.log(`props`, props)
+	let pool = props.poolTotal
+
 	return (
 		<div className='universe katamari'>
 				<img src={kball} className='rotate' id='poolHUD'></img>
 				<h1 className='universe' id='pool_amount'>
-					<eth>28.8</eth><sym><img src={ethereum} alt='ETH'></img></sym>
+					<eth>{pool}</eth><sym><img src={ethereum} alt='ETH'></img></sym>
 					<dai>5000.35</dai><sym><img src={dai} alt='Dai'></img></sym>
 					<nft>123</nft><sym><img src={opensea} alt='OpenSea'></img></sym>
 				</h1>

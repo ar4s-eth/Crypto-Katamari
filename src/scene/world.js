@@ -87,18 +87,22 @@ export default class World extends Phaser.Scene {
     this.katamari
     
     // Create the katamari container && size it
-    // this.katamari = this.add.container(width * 0.4 , height * 0.8)
+   
     this.katamari = this.add.container(width * 0.4, height * 0.8)
-    this.katamari.setSize(600, 600)
+
+    this.katamari.setSize(50, 50)
 
     // Load the "kball" (no gravity)
     // this.kball = this.add.image(0, 0, 'kball');
 
     // Load the "kball" & add physics
-    this.kball = this.physics.add.image(0, 0, 'kball');
+    this.kball = this.physics.add.image(100, 100, 'kball');
+    
+    this.kball.body.setCircle(255, 62, 62)
 
     // if this is too high the katamari will fly off
-    this.kball.setGravityY(1)
+    this.kball.setGravityY(100)
+    this.kball.setBounce(0.4)
 
     this.groundX = this.sys.game.config.width / 2;
     this.groundY = this.sys.game.config.height * 0.90;
@@ -114,41 +118,41 @@ export default class World extends Phaser.Scene {
 
 
     // Add kball to Katamari container
-    this.katamari.add(this.kball)
+    // this.katamari.add(this.kball)
     
-    // Scale the kball to the container
+    // Scale the kball
     this.kball.setScale(0.2)
     
 
     // // Create orbiting nft's
-    this.nft1 = this.add.sprite(0, 50, 'nft1')
-    this.nft1.setScale(0.5)
+    // this.nft1 = this.add.sprite(0, 50, 'nft1')
+    // this.nft1.setScale(0.5)
     
-    this.nft2 = this.add.sprite(-50, 50, 'nft2')
-    this.nft2.setScale(0.1)
+    // this.nft2 = this.add.sprite(-50, 50, 'nft2')
+    // this.nft2.setScale(0.1)
     
-    this.nft3 = this.add.sprite(-80, -50, 'nft3')
-    this.nft3.setScale(0.1)
+    // this.nft3 = this.add.sprite(-80, -50, 'nft3')
+    // this.nft3.setScale(0.1)
     
-    this.nft5 = this.add.sprite(200, 200, 'nft5')
-    this.nft5.setScale(1)
+    // this.nft5 = this.add.sprite(200, 200, 'nft5')
+    // this.nft5.setScale(1)
     
-    // Add them to the Katamari container
-    this.katamari.add(this.nft1)
-    this.katamari.add(this.nft2)
-    this.katamari.add(this.nft3)
-    this.katamari.add(this.nft5)
+    // // Add them to the Katamari container
+    // this.katamari.add(this.nft1)
+    // this.katamari.add(this.nft2)
+    // this.katamari.add(this.nft3)
+    // this.katamari.add(this.nft5)
     
     // Async loading
-      this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
+      // this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
 
-      this.load.once('complete', (x) => { 
-        this.nft6 = this.add.sprite(-50, 80, 'nft6')
-        this.nft6.setScale(0.5)
-        this.katamari.add(this.nft6)   
-        // console.log(`from load once`, x)
-      })
-      this.load.start()
+      // this.load.once('complete', (x) => { 
+      //   this.nft6 = this.add.sprite(-50, 80, 'nft6')
+      //   this.nft6.setScale(0.5)
+      //   this.katamari.add(this.nft6)   
+      //   // console.log(`from load once`, x)
+      // })
+      // this.load.start()
 
       // this.katamari.fixedToCamera(cam)
       
