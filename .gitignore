@@ -16,4 +16,4 @@ dist/
 # Test files
 test.js
 test.py
-test/
+tests/
