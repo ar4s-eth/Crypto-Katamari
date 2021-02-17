@@ -98,6 +98,7 @@ export default class World extends Phaser.Scene {
     // Load the "kball" & add physics
     this.kball = this.physics.add.image(100, 100, 'kball');
     
+    // Set kball's body as a circle to it's circumference 
     this.kball.body.setCircle(255, 62, 62)
 
     // if this is too high the katamari will fly off

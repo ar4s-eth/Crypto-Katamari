@@ -1,20 +1,31 @@
-import React from "react";
-import { poolData } from '../../graphql/script.js'
+import  React, { useState, useEffect } from "react";
+import { poolData } from '../helpers/getPoolData.js'
 import App from './App.jsx'
-import weiToEthUsd from '../helpers/convertETH.js'
+import { weiToEthUsd } from '../helpers/convert.js'
+const axios = require('axios');
 
 // console.log(`from poolHUD`, callPoolTogetherApi(url, query))
 
+
+
+
 export default function PoolHUD(props) {	
 
+  const [ price, setPrice ] = useState(null);
 
 
+  useEffect(() => {
+    poolData
+      .then(data => { 
+        setPrice(() => weiToEthUsd(data.cumulativePrizeGross, 1)) 
+      })
+  }, [poolData]);
 
-	return(
-    <h1 className='universe' id='pool_amount'>
-      <eth>{pool}</eth><sym><img src={ethereum} alt='ETH'></img></sym>
-      <dai>5000.35</dai><sym><img src={dai} alt='Dai'></img></sym>
-      <nft>123</nft><sym><img src={opensea} alt='OpenSea'></img></sym>
-    </h1>
+  console.log(`after useEffect`, price);
+	
+  return(
+    <App
+      price={price}    
+    />
   )
 }
