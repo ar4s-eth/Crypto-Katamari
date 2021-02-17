@@ -1,16 +1,3 @@
-.universe {
-  position: absolute;
-}
-
- /* Hue animation for Katamari */
-.katamari {
-  animation: hueRotation 2s linear 200ms infinite;
-  /* height: 120px;
-  width: 120px; */
-  border-radius: 50%;
-  /* position: relative; */
-}
-
 
 @keyframes hueRotation {
   0% {
@@ -40,6 +27,7 @@
     transform: rotate(359deg);
   }
 }
+
 
 #pool_amount {
   font-family: 'Rationale', sans-serif;

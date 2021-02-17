@@ -1,35 +1,28 @@
-import  React, { useState, useEffect } from "react";
-import { poolData } from '../helpers/getPoolData.js'
-import App from './App.jsx'
-import { weiToEthUsd } from '../helpers/convert.js'
-// const axios = require('axios');
+import React, { useState } from "react";
 
-// console.log(`from poolHUD`, callPoolTogetherApi(url, query))
+// Graphics
+import "../stylesheets/poolHUD.css";
+import "../stylesheets/index.css";
+import kball from '../assets/sprites/kball.png'
+import opensea from '../assets/icons/opensea_icon.png'
+import ethereum from '../assets/icons/eth_icon.svg'
+import dai from '../assets/icons/dai_icon.svg'
 
+export default function App(props) {	
 
+  return (
+		<div className='universe katamari'>
+				<img src={kball} className='rotate' id='poolHUD'></img>
 
+					<h5 className='universe' id='pool_amount'>
 
-export default function PoolHUD(props) {	
+      			<div className='eth'>{props.eth}<img className='symbol' src={ethereum} alt='ETH'></img></div>
 
-  
-  const [ price, setPrice ] = useState(null);
+      			<div className='dai'>{props.dai}<img className='symbol' src={dai} alt='Dai'></img></div>
 
-  let priceUSD = weiToEthUsd(price, 1);
-  let priceETH = weiToEthUsd(price, 0);
+      			<div className='nft'>123<img className='symbol' src={opensea} alt='OpenSea'></img></div>
 
-  useEffect(() => {
-    poolData
-      .then(data => { 
-        setPrice(() => weiToEthUsd(data.cumulativePrizeGross, 1)) 
-      })
-  }, [poolData]);
-
-  console.log(`after useEffect`, price);
-
-	
-  return(
-    <App
-      price={price}    
-    />
-  )
+    			</h5>
+		</div>
+	)
 }
