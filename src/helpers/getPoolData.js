@@ -1,19 +1,18 @@
 const axios = require('axios');
 
-// dai: 0xEBfb47A7ad0FD6e57323C8A42B2E5A6a4F68fc1a
-// uni: 0x0650d780292142835f6ac58dd8e2a336e87b4393
-// comp: 0xBC82221e131c082336cf698F0cA3EBd18aFd4ce7
-// usdc: 0xde9ec95d7708b8319ccca4b8bc92c0a3b70bf416
+const poolTogetherGraph = 'https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-v3_1_0'
 
+const poolUNI = '0x0650d780292142835f6ac58dd8e2a336e87b4393';
+const poolDAI = '0xEBfb47A7ad0FD6e57323C8A42B2E5A6a4F68fc1a';
+const poolCOMP = '0xBC82221e131c082336cf698F0cA3EBd18aFd4ce7';
+const poolUSDC = '0xde9ec95d7708b8319ccca4b8bc92c0a3b70bf416';
 
-const url = 'https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-v3_1_0'
-const id = '0x0650d780292142835f6ac58dd8e2a336e87b4393'
-const query = `query {
-  prizePools(where:{id:"${id}"}) {
+const targetPool = poolUNI
+
+const queryPrizeGross = `query {
+  prizePools(where:{id:"${targetPool}"}) {
     id
-    cumulativePrizeNet
     cumulativePrizeGross
-    cumulativePrizeReserveFee
   }
 }`
 
@@ -35,3 +34,7 @@ export function callPoolTogetherApi(url, query) {
     // console.log(res.data.data);
   }).catch(err => console.error(err));
 };
+
+const poolData = callPoolTogetherApi(poolTogetherGraph, queryPrizeGross)
+
+module.exports = poolData;

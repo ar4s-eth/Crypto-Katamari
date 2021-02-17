@@ -1,31 +1,20 @@
 import React from "react";
-import { callPoolTogetherApi } from '../../graphql/script.js'
+import { poolData } from '../../graphql/script.js'
 import App from './App.jsx'
+import weiToEthUsd from '../helpers/convertETH.js'
 
-const url = 'https://api.thegraph.com/subgraphs/name/pooltogether/pooltogether-v3_1_0'
-const id = '0x0650d780292142835f6ac58dd8e2a336e87b4393'
-const query = `query {
-  prizePools(where:{id:"${id}"}) {
-    id
-    cumulativePrizeNet
-    cumulativePrizeGross
-    cumulativePrizeReserveFee
-  }
-}`
+// console.log(`from poolHUD`, callPoolTogetherApi(url, query))
 
-console.log(`from poolHUD`, callPoolTogetherApi(url, query))
 export default function PoolHUD(props) {	
 
-  let prizeQuery = callPoolTogetherApi(url, query)
 
-
-  const poolTotal = prizeQuery
 
 
 	return(
-    <App 
-      poolTotal={poolTotal}
-    />
-
+    <h1 className='universe' id='pool_amount'>
+      <eth>{pool}</eth><sym><img src={ethereum} alt='ETH'></img></sym>
+      <dai>5000.35</dai><sym><img src={dai} alt='Dai'></img></sym>
+      <nft>123</nft><sym><img src={opensea} alt='OpenSea'></img></sym>
+    </h1>
   )
 }

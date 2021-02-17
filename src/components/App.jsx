@@ -29,17 +29,14 @@ const game = new Phaser.Game(config);
 
 export default function App(props) {	
 
+
+
 	console.log(`props`, props)
 	let pool = props.poolTotal
 
 	return (
 		<div className='universe katamari'>
 				<img src={kball} className='rotate' id='poolHUD'></img>
-				<h1 className='universe' id='pool_amount'>
-					<eth>{pool}</eth><sym><img src={ethereum} alt='ETH'></img></sym>
-					<dai>5000.35</dai><sym><img src={dai} alt='Dai'></img></sym>
-					<nft>123</nft><sym><img src={opensea} alt='OpenSea'></img></sym>
-				</h1>
 				{/* <img src={zero2} id='zero2'></img> */}
 			<main className='world'>{game.canvas}</main>
 		</div>
