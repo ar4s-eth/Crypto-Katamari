@@ -11,7 +11,9 @@ import kball from '../assets/sprites/kball.png'
 import opensea from '../assets/icons/opensea_icon.png'
 import ethereum from '../assets/icons/eth_icon.svg'
 import dai from '../assets/icons/dai_icon.svg'
-// import PoolHUD from './PoolHUD.jsx'
+import PoolHUD from './PoolHUD.jsx'
+
+// console.log(PoolHUD)
 
 // Game settings
 export const config = {
@@ -23,7 +25,7 @@ export const config = {
 		mode: Phaser.Scale.FIT , 
 		autoCenter: Phaser.Scale.CENTER_BOTH },
 	scene: [ World ],
-	physics: { default: 'arcade', arcade:{debug:true}}
+	physics: { default: 'arcade', arcade:{debug:true} }
 };
 
 // Create the game instance
@@ -33,10 +35,8 @@ const game = new Phaser.Game(config);
 
 export default function App(props) {	
 
-	// const [ state, setState ] = useState('loaded')
-
 	console.log(`App props`, props)
-
+	console.log(`game canvas`, game.canvas)
 	return (
 		<div className='universe katamari'>
 			
@@ -46,16 +46,12 @@ export default function App(props) {
 
       			<div className='eth'>{props.price}<img className='symbol' src={ethereum} alt='ETH'></img></div>
 
-      			<div className='dai'>5000.35<img className='symbol' src={dai} alt='Dai'></img></div>
+      			<div className='dai'>{props.price}<img className='symbol' src={dai} alt='Dai'></img></div>
 
       			<div className='nft'>123<img className='symbol' src={opensea} alt='OpenSea'></img></div>
 
     			</h5>
-			<main className='world'>{game.canvas}</main>
-
-			{/* <PoolHUD
-			state={state}
-			/> */}
+			{/* <main className='world'>{game.canvas}</main> */}
 		</div>
 	)
 }

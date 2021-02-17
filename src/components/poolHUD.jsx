@@ -11,7 +11,11 @@ import { weiToEthUsd } from '../helpers/convert.js'
 
 export default function PoolHUD(props) {	
 
+  
   const [ price, setPrice ] = useState(null);
+
+  let priceUSD = weiToEthUsd(price, 1);
+  let priceETH = weiToEthUsd(price, 0);
 
   useEffect(() => {
     poolData
