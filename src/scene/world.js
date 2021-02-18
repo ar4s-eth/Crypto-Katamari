@@ -79,7 +79,7 @@ export default class World extends Phaser.Scene {
     createLoop(this, totalWidth, 'plants', 1.25)
 
     // Controls how far you can go 
-    this.cameras.main.setBounds(0, 0, width * width, height)
+    // this.cameras.main.setBounds(0, 0, width * width, height)
 
     //// Katamari Logic
 
@@ -88,8 +88,7 @@ export default class World extends Phaser.Scene {
     
     // Create the katamari container && size it
    
-    this.katamari = this.add.container(width * 0.4, height * 0.8)
-
+    this.katamari = this.add.container(600, 50)
     this.katamari.setSize(50, 50)
 
     // Load the "kball" (no gravity)
@@ -105,6 +104,10 @@ export default class World extends Phaser.Scene {
     this.kball.setGravityY(100)
     this.kball.setBounce(0.4)
 
+    
+    
+    // Ground initialization and settings
+
     this.groundX = this.sys.game.config.width / 2;
     this.groundY = this.sys.game.config.height * 0.90;
 
@@ -112,9 +115,8 @@ export default class World extends Phaser.Scene {
     this.ground.setGravity(0)
     
     this.ground.displayWidth=this.sys.game.config.width * 1.1;
-    
+  
     this.physics.add.collider(this.kball, this.ground)
-    
     this.ground.setImmovable();
 
 
@@ -122,15 +124,37 @@ export default class World extends Phaser.Scene {
     // this.katamari.add(this.kball)
     
     // Scale the kball
-    this.kball.setScale(0.2)
+    this.kball.setScale(0.5)
+
+    // Set overlap for kball
+    this.kball.body.onCollide = true
     
 
-    // // Create orbiting nft's
+    this.physics.world.on('collide', (a, b) => {
+      
+      a.body.enable = 0
+      this.katamari.add(a)
+      console.log(`this is a`, a)
+      console.log(`this is b`, b)
+    })
+
+ 
+
+    // Create orbiting nft's
     // this.nft1 = this.add.sprite(0, 50, 'nft1')
     // this.nft1.setScale(0.5)
+    this.nft1 = this.physics.add.sprite(400, 300, 'nft1')
+    this.nft1.setGravityY(100)
+    this.nft1.setBounce(0)
+    this.physics.add.collider(this.nft1, this.ground)
+    this.physics.add.collider(this.nft1, this.kball)
+    this.nft1.setScale(0.5)
+    this.nft1.body.setCircle(50, 70, 70)
+
+    // this.physics.add.collider(this.kball, this.nft1)
     
-    // this.nft2 = this.add.sprite(-50, 50, 'nft2')
-    // this.nft2.setScale(0.1)
+    this.nft2 = this.add.sprite(-50, 50, 'nft2')
+    this.nft2.setScale(0.1)
     
     // this.nft3 = this.add.sprite(-80, -50, 'nft3')
     // this.nft3.setScale(0.1)
@@ -140,7 +164,7 @@ export default class World extends Phaser.Scene {
     
     // // Add them to the Katamari container
     // this.katamari.add(this.nft1)
-    // this.katamari.add(this.nft2)
+    this.katamari.add(this.nft2)
     // this.katamari.add(this.nft3)
     // this.katamari.add(this.nft5)
     
@@ -151,18 +175,21 @@ export default class World extends Phaser.Scene {
       //   this.nft6 = this.add.sprite(-50, 80, 'nft6')
       //   this.nft6.setScale(0.5)
       //   this.katamari.add(this.nft6)   
-      //   // console.log(`from load once`, x)
       // })
       // this.load.start()
 
-      // this.katamari.fixedToCamera(cam)
-      
+      // // this.katamari.fixedToCamera(cam)
+      // this.cursors = this.input.keyboard.createCursorKeys();
+
     }
     
     update() {
       
       // Global 
-      const speed = 2
+      let kballSpeed = 0
+    
+      // console.log(`inside update kball`, this.kballSpeed)
+      // console.log(`inside update`, this.katamariRotation)
       // Landscape
       
       // const cam = this.cameras.main
@@ -171,23 +198,39 @@ export default class World extends Phaser.Scene {
       // Manually scroll through the world 
 
       // if (this.cursors.left.isDown) {
-        //   cam.scrollX -= speed
-        // }
-        // else if (this.cursors.right.isDown) {
-          //   cam.scrollX += speed
-          // }
-          // cam.scrollX = speed
+      //     cam.scrollX -= speed
+      //   }
+      //   else if (this.cursors.right.isDown) {
+      //       cam.scrollX += speed
+      //     }
+      //     cam.scrollX = speed
 
 
-          // Katamari
-          
-          // this.cameras.main.startFollow(this.katamari)
-      this.katamari.rotation += 0.02
-      // this.katamari.x += speed
-    
+      // Katamari
       
-      // this.katamari.scrollX += speed
+      // this.cameras.main.startFollow(this.katamari)
+      this.katamari.rotation += 0.02
+      this.katamari.x = this.kball.body.position.x
+      this.katamari.y = this.kball.body.position.y
+      // this.katamari.child.body.enable = false
+      
+      
+      // Kball movement
+      
+      // this.kball.setAngularVelocity(0.5)
+      // this.kball.angularVelocity += 1
+      // this.kball.setVelocityX(0.2)
+      // this.kball.body.setAngularVelocity(0.5)
+      // this.kball.body.setVelocityX(0.5)
+      
+      this.kball.setDrag(1);
+      
+      if (this.cursors.right.isDown) {
+        this.kballSpeed = this.kball.setVelocity(200)
+        this.kball.rotation += 0.02
+        // console.log(`inside if`, this.kballSpeed)
+      }
 
-    
+
   }
 }
