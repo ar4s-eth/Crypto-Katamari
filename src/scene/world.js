@@ -50,7 +50,7 @@ export default class World extends Phaser.Scene {
 
     // Katamari
     this.load.image('kball', 'src/assets/sprites/kball.png');
-    this.load.image('nft1', 'src/assets/sprites/img_nft1.png');
+    this.load.image('nft1', 'src/assets/sprites/img_nft1.png')
     this.load.image('nft2', 'src/assets/sprites/img_nft2.png');
     this.load.image('nft3', 'src/assets/sprites/img_nft3.jpg');
     this.load.image('ntf4', 'src/assets/sprites/img_nft4.png');
@@ -62,7 +62,7 @@ export default class World extends Phaser.Scene {
   
   create() {
     
-
+    // console.log(`sprite1`, this.game.textures)
     //// World Logic
 
     // Setup Landscape & world dimensions
@@ -85,10 +85,11 @@ export default class World extends Phaser.Scene {
     // Load the "kball" (no gravity)
     // this.kball = this.add.image(0, 0, 'kball');
 
-    // Load the "kball" & add physics
+
+    // Reference for the object body/physics
     let kballCenter = 62
     
-
+    // Load the "kball" & add physics
     this.kball = this.physics.add.image(100, 100, 'kball');
     
     // Set kball's body as a circle to it's circumference 
@@ -105,18 +106,18 @@ export default class World extends Phaser.Scene {
     this.kball.body.onCollide = true
     // this.ground.body.onCollide = false
 
-    //// Katamari Logic
+    //// Game Containers
 
     // Initialize the katamari 
     this.katamari
     
     // Create the katamari container && size it
-   
-    this.katamari = this.add.container(this.kball.body.position.x, this.kball.body.position.y)
-    this.katamari.setSize(0.01, 0.01)
+    this.katamari = this.add.container(0, 0)
+    // this.katamari.setSize(0.01, 0.01)
     
-
-
+    // Initialize the cloud
+    this.cloud
+    this.cloud = this.add.container(900, 0)
     
     
     // Ground initialization and settings
@@ -137,36 +138,51 @@ export default class World extends Phaser.Scene {
     // this.katamari.add(this.kball)
     
     
-
+    // Add sprites to the katamari with collision
     this.physics.world.on('collide', (sprite, obj) => {
-      
       if (sprite.body.immovable === false && obj.body.immovable === false) {
         sprite.body.enable = 0
         this.katamari.add(sprite)
+        sprite.x = 150
+        sprite.y = -50
         console.log(`this is sprite`, sprite)
         console.log(`this is image`, obj)
       }
-
-
     })
 
  
+    const spawnNFT = (obj) => {
+      let nft = this.physics.add.sprite(0, 0, obj);
+      nft.setGravityY(100)
+      nft.setBounce(0.3)
+      nft.setScale(0.5)
+      this.cloud.add(nft)
+      this.physics.add.collider(nft, this.ground)
+      this.physics.add.collider(nft, this.kball)
+    }
+  
+    spawnNFT('nft1');
+    spawnNFT('nft2');
+    // spawnNFT('nft3');
+    spawnNFT('nft4');
+
 
     // Create orbiting nft's
     // this.nft1 = this.add.sprite(0, 50, 'nft1')
     // this.nft1.setScale(0.5)
-    this.nft1 = this.physics.add.sprite(100, 0, 'nft1')
-    this.nft1.setGravityY(100)
-    this.nft1.setBounce(0)
-    this.physics.add.collider(this.nft1, this.ground)
-    this.physics.add.collider(this.nft1, this.kball)
-    this.nft1.setScale(0.5)
-    this.nft1.body.setCircle(50, 70, 70)
+    // this.nft1 = this.physics.add.sprite(100, 0, 'nft1')
+    // this.cloud.add(this.nft1)
+    // this.nft1.setGravityY(100)
+    // this.nft1.setBounce(1)
+    // this.physics.add.collider(this.nft1, this.ground)
+    // this.physics.add.collider(this.nft1, this.kball)
+    // this.nft1.setScale(0.5)
+    // this.nft1.body.setCircle(50, 70, 70)
 
     // this.physics.add.collider(this.kball, this.nft1)
     
-    this.nft2 = this.add.sprite(-50, 50, 'nft2')
-    this.nft2.setScale(0.1)
+    // this.nft2 = this.add.sprite(-50, 50, 'nft2')
+    // this.nft2.setScale(0.1)
     
     // this.nft3 = this.add.sprite(-80, -50, 'nft3')
     // this.nft3.setScale(0.1)
@@ -176,9 +192,11 @@ export default class World extends Phaser.Scene {
     
     // // Add them to the Katamari container
     // this.katamari.add(this.nft1)
-    this.katamari.add(this.nft2)
+    // this.katamari.add(this.nft2)
     // this.katamari.add(this.nft3)
     // this.katamari.add(this.nft5)
+
+
     
     // Async loading
       // this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
