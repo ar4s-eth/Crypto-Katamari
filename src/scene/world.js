@@ -62,6 +62,7 @@ export default class World extends Phaser.Scene {
   
   create() {
     
+
     //// World Logic
 
     // Setup Landscape & world dimensions
@@ -81,6 +82,29 @@ export default class World extends Phaser.Scene {
     // Controls how far you can go 
     // this.cameras.main.setBounds(0, 0, width * width, height)
 
+    // Load the "kball" (no gravity)
+    // this.kball = this.add.image(0, 0, 'kball');
+
+    // Load the "kball" & add physics
+    let kballCenter = 62
+    
+
+    this.kball = this.physics.add.image(100, 100, 'kball');
+    
+    // Set kball's body as a circle to it's circumference 
+    this.kball.body.setCircle(255, kballCenter, kballCenter)
+
+    // kball physics
+    this.kball.setGravityY(100)
+    this.kball.setBounce(0.4)
+
+    // Scale the kball
+    this.kball.setScale(0.5)
+
+    // Set collide for kball
+    this.kball.body.onCollide = true
+    // this.ground.body.onCollide = false
+
     //// Katamari Logic
 
     // Initialize the katamari 
@@ -88,21 +112,10 @@ export default class World extends Phaser.Scene {
     
     // Create the katamari container && size it
    
-    this.katamari = this.add.container(600, 50)
-    this.katamari.setSize(50, 50)
-
-    // Load the "kball" (no gravity)
-    // this.kball = this.add.image(0, 0, 'kball');
-
-    // Load the "kball" & add physics
-    this.kball = this.physics.add.image(100, 100, 'kball');
+    this.katamari = this.add.container(this.kball.body.position.x, this.kball.body.position.y)
+    this.katamari.setSize(0.01, 0.01)
     
-    // Set kball's body as a circle to it's circumference 
-    this.kball.body.setCircle(255, 62, 62)
 
-    // if this is too high the katamari will fly off
-    this.kball.setGravityY(100)
-    this.kball.setBounce(0.4)
 
     
     
@@ -123,19 +136,18 @@ export default class World extends Phaser.Scene {
     // Add kball to Katamari container
     // this.katamari.add(this.kball)
     
-    // Scale the kball
-    this.kball.setScale(0.5)
-
-    // Set overlap for kball
-    this.kball.body.onCollide = true
     
 
-    this.physics.world.on('collide', (a, b) => {
+    this.physics.world.on('collide', (sprite, obj) => {
       
-      a.body.enable = 0
-      this.katamari.add(a)
-      console.log(`this is a`, a)
-      console.log(`this is b`, b)
+      if (sprite.body.immovable === false && obj.body.immovable === false) {
+        sprite.body.enable = 0
+        this.katamari.add(sprite)
+        console.log(`this is sprite`, sprite)
+        console.log(`this is image`, obj)
+      }
+
+
     })
 
  
@@ -143,7 +155,7 @@ export default class World extends Phaser.Scene {
     // Create orbiting nft's
     // this.nft1 = this.add.sprite(0, 50, 'nft1')
     // this.nft1.setScale(0.5)
-    this.nft1 = this.physics.add.sprite(400, 300, 'nft1')
+    this.nft1 = this.physics.add.sprite(100, 0, 'nft1')
     this.nft1.setGravityY(100)
     this.nft1.setBounce(0)
     this.physics.add.collider(this.nft1, this.ground)
@@ -186,7 +198,8 @@ export default class World extends Phaser.Scene {
     update() {
       
       // Global 
-      let kballSpeed = 0
+      this.kballSpeed = 0
+      
     
       // console.log(`inside update kball`, this.kballSpeed)
       // console.log(`inside update`, this.katamariRotation)
@@ -210,8 +223,8 @@ export default class World extends Phaser.Scene {
       
       // this.cameras.main.startFollow(this.katamari)
       this.katamari.rotation += 0.02
-      this.katamari.x = this.kball.body.position.x
-      this.katamari.y = this.kball.body.position.y
+      this.katamari.x = this.kball.body.position.x + 126
+      this.katamari.y = this.kball.body.position.y + 126
       // this.katamari.child.body.enable = false
       
       
@@ -229,6 +242,9 @@ export default class World extends Phaser.Scene {
         this.kballSpeed = this.kball.setVelocity(200)
         this.kball.rotation += 0.02
         // console.log(`inside if`, this.kballSpeed)
+      } else if (this.cursors.left.isDown) {
+        this.kballSpeed = this.kball.setVelocity(-200)
+        this.kball.rotation -= 0.02
       }
 
 
