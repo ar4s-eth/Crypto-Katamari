@@ -80,7 +80,7 @@ export default class World extends Phaser.Scene {
     createLoop(this, totalWidth, 'plants', 1.25)
 
     // Controls how far you can go 
-    // this.cameras.main.setBounds(0, 0, width * width, height)
+    this.cameras.main.setBounds(0, 0, width * width, height)
 
     // Load the "kball" (no gravity)
     // this.kball = this.add.image(0, 0, 'kball');
@@ -128,7 +128,7 @@ export default class World extends Phaser.Scene {
     this.ground = this.physics.add.image(this.groundX, this.groundY)
     this.ground.setGravity(0)
     
-    this.ground.displayWidth=this.sys.game.config.width * 1.1;
+    this.ground.displayWidth=this.sys.game.config.width * width;
   
     this.physics.add.collider(this.kball, this.ground)
     this.ground.setImmovable();
@@ -143,8 +143,8 @@ export default class World extends Phaser.Scene {
       if (sprite.body.immovable === false && obj.body.immovable === false) {
         sprite.body.enable = 0
         this.katamari.add(sprite)
-        sprite.x = 150
-        sprite.y = -50
+        sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(150)
+        sprite.y = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         console.log(`this is sprite`, sprite)
         console.log(`this is image`, obj)
       }
@@ -238,8 +238,8 @@ export default class World extends Phaser.Scene {
 
 
       // Katamari
-      
-      // this.cameras.main.startFollow(this.katamari)
+      // this.katamari.fixedToCamera(cam)
+      this.cameras.main.startFollow(this.katamari)
       this.katamari.rotation += 0.02
       this.katamari.x = this.kball.body.position.x + 126
       this.katamari.y = this.kball.body.position.y + 126
