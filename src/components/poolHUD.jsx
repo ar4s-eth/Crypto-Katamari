@@ -8,10 +8,16 @@ import opensea from '../assets/icons/opensea_icon.png'
 import ethereum from '../assets/icons/eth_icon.svg'
 import dai from '../assets/icons/dai_icon.svg'
 
-export default function App(props) {	
+
+export default function PoolHUD(props) {	
+  const [ score, setScore ] = useState(0)
+
+	let increment = (x) => {
+		setScore(x + 1)
+	}
 
   return (
-		<div className='universe katamari'>
+		<div className='katamari'>
 				<img src={kball} className='rotate' id='poolHUD'></img>
 
 					<h5 className='universe' id='pool_amount'>
@@ -20,7 +26,7 @@ export default function App(props) {
 
       			<div className='dai'>{props.dai}<img className='symbol' src={dai} alt='Dai'></img></div>
 
-      			<div className='nft'>123<img className='symbol' src={opensea} alt='OpenSea'></img></div>
+      			<div className='nft'>{props.nft}<img className='symbol' src={opensea} alt='OpenSea'></img></div>
 
     			</h5>
 		</div>

@@ -15,9 +15,10 @@ export const config = {
 	scene: [ World ],
 	physics: {
     default: 'arcade',
-    arcade:{debug:true}
+    arcade:{debug:true},
   }
 };
+
 
 // Create the game instance
 const game = new Phaser.Game(config);

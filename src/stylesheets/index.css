@@ -1,12 +1,10 @@
+/* @font-face {
+  font-family: 'katamari-serif';
+  src: url('/src/assets/fonts/katamari_serif.ttf') format('ttf');
+} */
+
 .universe {
   position: absolute;
+  width: 100%;
 }
 
- /* Hue animation for Katamari */
-.katamari {
-  animation: hueRotation 2s linear 200ms infinite;
-  /* height: 120px;
-  width: 120px; */
-  border-radius: 50%;
-  /* position: relative; */
-}

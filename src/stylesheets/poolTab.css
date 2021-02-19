@@ -1,0 +1,10 @@
+
+header {
+  font-family: 'katamari-serif';
+}
+
+header.logo {
+  position: absolute;
+  right: 500px;
+  color: black;
+}

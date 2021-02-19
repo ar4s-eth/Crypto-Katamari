@@ -8,6 +8,15 @@
   }
 }
 
+ /* Hue animation for Katamari */
+ .katamari {
+  animation: hueRotation 2s linear 200ms infinite;
+  /* height: 120px;
+  width: 120px; */
+  border-radius: 50%;
+  /* position: relative; */
+}
+
 #poolHUD {
   margin: -45%;
   color: black;

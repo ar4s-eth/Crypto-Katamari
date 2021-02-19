@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import EventDispatcher from '../helpers/eventDispatcher.js'
 
 /**
  * 
@@ -61,8 +62,11 @@ export default class World extends Phaser.Scene {
   
   
   create() {
+
+    let emitter = EventDispatcher.getInstance();
+    console.log(emitter)
     
-    // console.log(`sprite1`, this.game.textures)
+   
     //// World Logic
 
     // Setup Landscape & world dimensions
@@ -82,10 +86,6 @@ export default class World extends Phaser.Scene {
     // Controls how far you can go 
     this.cameras.main.setBounds(0, 0, width * width, height)
 
-    // Load the "kball" (no gravity)
-    // this.kball = this.add.image(0, 0, 'kball');
-
-
     // Reference for the object body/physics
     let kballCenter = 62
     
@@ -104,7 +104,7 @@ export default class World extends Phaser.Scene {
 
     // Set collide for kball
     this.kball.body.onCollide = true
-    // this.ground.body.onCollide = false
+
 
     //// Game Containers
 
@@ -121,7 +121,6 @@ export default class World extends Phaser.Scene {
     
     
     // Ground initialization and settings
-
     this.groundX = this.sys.game.config.width / 2;
     this.groundY = this.sys.game.config.height * 0.90;
 
@@ -132,10 +131,6 @@ export default class World extends Phaser.Scene {
   
     this.physics.add.collider(this.kball, this.ground)
     this.ground.setImmovable();
-
-
-    // Add kball to Katamari container
-    // this.katamari.add(this.kball)
     
     
     // Add sprites to the katamari with collision
@@ -145,8 +140,10 @@ export default class World extends Phaser.Scene {
         this.katamari.add(sprite)
         sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         sprite.y = Math.round(Math.random() * 2 - 1) * Math.floor(150)
-        console.log(`this is sprite`, sprite)
-        console.log(`this is image`, obj)
+        emitter.emit("AND_1", 1)
+        console.log(emitter.emit)
+        // console.log(`this is sprite`, sprite)
+        // console.log(`this is image`, obj)
       }
     })
 
@@ -167,36 +164,6 @@ export default class World extends Phaser.Scene {
     spawnNFT('nft4');
 
 
-    // Create orbiting nft's
-    // this.nft1 = this.add.sprite(0, 50, 'nft1')
-    // this.nft1.setScale(0.5)
-    // this.nft1 = this.physics.add.sprite(100, 0, 'nft1')
-    // this.cloud.add(this.nft1)
-    // this.nft1.setGravityY(100)
-    // this.nft1.setBounce(1)
-    // this.physics.add.collider(this.nft1, this.ground)
-    // this.physics.add.collider(this.nft1, this.kball)
-    // this.nft1.setScale(0.5)
-    // this.nft1.body.setCircle(50, 70, 70)
-
-    // this.physics.add.collider(this.kball, this.nft1)
-    
-    // this.nft2 = this.add.sprite(-50, 50, 'nft2')
-    // this.nft2.setScale(0.1)
-    
-    // this.nft3 = this.add.sprite(-80, -50, 'nft3')
-    // this.nft3.setScale(0.1)
-    
-    // this.nft5 = this.add.sprite(200, 200, 'nft5')
-    // this.nft5.setScale(1)
-    
-    // // Add them to the Katamari container
-    // this.katamari.add(this.nft1)
-    // this.katamari.add(this.nft2)
-    // this.katamari.add(this.nft3)
-    // this.katamari.add(this.nft5)
-
-
     
     // Async loading
       // this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
@@ -211,6 +178,7 @@ export default class World extends Phaser.Scene {
       // // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
 
+      // this.setListeners();
     }
     
     update() {
@@ -268,3 +236,5 @@ export default class World extends Phaser.Scene {
 
   }
 }
+
+// module.exports = { nftEvent }
