@@ -8,15 +8,6 @@
   }
 }
 
- /* Hue animation for Katamari */
- .katamari {
-  animation: hueRotation 2s linear 200ms infinite;
-  /* height: 120px;
-  width: 120px; */
-  border-radius: 50%;
-  /* position: relative; */
-}
-
 #poolHUD {
   margin: -45%;
   color: black;
@@ -61,32 +52,23 @@
 	-webkit-animation: hue 10s infinite linear; */
 }
 
-/* @-webkit-keyframes hue {
-  from {
-    -webkit-filter: hue-rotate(0deg);
-  }
-  to {
-    -webkit-filter: hue-rotate(-360deg);
-  }
-} */
+.eth {
+  font-size: 2em;
+}
 
-  .eth {
-    font-size: 2em;
-  }
+.dai {
+  font-size: 1.5em;
+}
 
-  .dai {
-    font-size: 1.5em;
-  }
+.nft {
+  font-size: 1em;
+}
 
-  .nft {
-    font-size: 1em;
-  }
+img.symbol {
+  width: 10%;
+  height: 10%;
+}
 
-  img.symbol {
-    width: 10%;
-    height: 10%;
-  }
-  
  /* How to get a div off of the screen
   .outer {
     overflow: hidden;

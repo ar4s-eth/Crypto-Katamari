@@ -36,14 +36,15 @@ export default function App(props) {
 	
   return(
     <>
-    <div className='universe'>
-      <PoolTab
-      />
-      <PoolHUD
-        eth={eth}
-        dai={dai}
-        nft={nft}
-      />
+    <div>
+      <PoolTab />
+      <div className='universe'>
+        <PoolHUD
+          eth={eth}
+          dai={dai}
+          nft={nft}
+        />
+      </div>
     </div>
     </>
     )
