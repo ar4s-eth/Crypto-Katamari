@@ -150,9 +150,25 @@ export default class World extends Phaser.Scene {
  
     const spawnNFT = (obj) => {
       let nft = this.physics.add.sprite(0, 0, obj);
+      // Set NFT Data
+
+      let openLink = function(permalink) {
+        let url = 'https://opensea.io/assets/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/21000765';
+        let action = window.open(url, '_blank');
+        if (action && action.focus) {
+          action.focus();
+        } else if (!action) {
+          window.location.href = url;
+        }
+
+      }
+
       nft.setGravityY(100)
       nft.setBounce(0.3)
       nft.setScale(0.5)
+      // Register a handle for when the user clicks
+      nft.on('pointerup', openLink, this)
+      nft.setInteractive()
       this.cloud.add(nft)
       this.physics.add.collider(nft, this.ground)
       this.physics.add.collider(nft, this.kball)
