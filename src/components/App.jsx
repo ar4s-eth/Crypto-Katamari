@@ -19,20 +19,13 @@ export default function App(props) {
   const [ eth, setEth ] = useState(null);
   const [ nft, setNft ] = useState(0)
 
-  // console.log(`listener`, EventListener)
-  // useEffect(() => {
-  // })
-
-  // listener.on("AND_1", setNft((e) => {e + 1}))
-  // listener.on("AND_1", e => setNft((prev) => prev + e))
-  
-  
+  // Update the NFT count
   useEffect(() => {
     const listener = EventDispatcher.getInstance()
     listener.on("AND_1", e => setNft((prev) => prev + e))    
   }, [])
   
-  // console.log(`under dispatcher`, listener)
+  // Fetch poolTogether Data
   useEffect(() => {
     poolData
     .then(data => { 
