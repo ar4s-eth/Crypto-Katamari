@@ -23,13 +23,16 @@ export default function App(props) {
   // useEffect(() => {
   // })
 
-  const listener = EventDispatcher.getInstance()
   // listener.on("AND_1", setNft((e) => {e + 1}))
   // listener.on("AND_1", e => setNft((prev) => prev + e))
-  listener.on("AND_1", (e) => console.log(e))
-
-  console.log(listener)
-
+  
+  
+  useEffect(() => {
+    const listener = EventDispatcher.getInstance()
+    listener.on("AND_1", e => setNft((prev) => prev + e))    
+  }, [])
+  
+  // console.log(`under dispatcher`, listener)
   useEffect(() => {
     poolData
     .then(data => { 

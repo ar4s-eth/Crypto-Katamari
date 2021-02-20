@@ -141,7 +141,7 @@ export default class World extends Phaser.Scene {
         sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         sprite.y = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         emitter.emit("AND_1", 1)
-        console.log(emitter.emit)
+        console.log(`world emitter`, emitter.emit)
         // console.log(`this is sprite`, sprite)
         // console.log(`this is image`, obj)
       }
