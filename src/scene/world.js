@@ -278,4 +278,4 @@ export default class World extends Phaser.Scene {
   }
 }
 
-// module.exports = { nftEvent }
+module.exports = { loadNFT }
