@@ -108,7 +108,7 @@ export default class World extends Phaser.Scene {
 
     //// Game Containers
 
-    // Initialize the katamari 
+    // Initialize the katamari (invisible)
     this.katamari
     
     // Create the katamari container && size it
@@ -118,7 +118,11 @@ export default class World extends Phaser.Scene {
     // Initialize the cloud
     this.cloud
     this.cloud = this.add.container(900, 0)
-    
+
+    // Initialize the infoHUD
+    // this.infoHUD
+    // this.infoHUD = this.add.container(800, 800)
+    // this.infoHUD.add.image(0, 0, 'nft3')
     
     // Ground initialization and settings
     this.groundX = this.sys.game.config.width / 2;
@@ -150,8 +154,8 @@ export default class World extends Phaser.Scene {
  
     const spawnNFT = (obj) => {
       let nft = this.physics.add.sprite(0, 0, obj);
-      // Set NFT Data
 
+      // Set NFT Data
       let openLink = function(permalink) {
         let url = 'https://opensea.io/assets/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/21000765';
         let action = window.open(url, '_blank');
@@ -160,14 +164,24 @@ export default class World extends Phaser.Scene {
         } else if (!action) {
           window.location.href = url;
         }
+      }
+
+      let hoverData = function() {
 
       }
 
+
+      // Set Physics
       nft.setGravityY(100)
       nft.setBounce(0.3)
       nft.setScale(0.5)
       // Register a handle for when the user clicks
       nft.on('pointerup', openLink, this)
+      // Register a handler for mouse hover
+      nft.on('pointerover', function() {
+        console.log('hover');
+      }, this
+      )
       nft.setInteractive()
       this.cloud.add(nft)
       this.physics.add.collider(nft, this.ground)
@@ -175,7 +189,7 @@ export default class World extends Phaser.Scene {
     }
   
     spawnNFT('nft1');
-    spawnNFT('nft2');
+    // spawnNFT('nft2');
     // spawnNFT('nft3');
     spawnNFT('nft4');
 
@@ -194,7 +208,6 @@ export default class World extends Phaser.Scene {
       // // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
 
-      // this.setListeners();
     }
     
     update() {
