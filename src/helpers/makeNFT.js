@@ -34,3 +34,4 @@ const makeSprite = (json) => {
 console.log(order2)
 
 makeSprite(order2)
+
