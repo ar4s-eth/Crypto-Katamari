@@ -4,7 +4,7 @@ import EventDispatcher from '../helpers/eventDispatcher.js'
 
 // Data
 import { poolData } from '../helpers/getPoolData.js'
-import { weiToEthUsd } from '../helpers/convert.js'
+import { weiToEthUsd } from '../helpers/convertWei.js'
 import World, { nftEvent } from '../scene/world'
 import game from './game.js'
 

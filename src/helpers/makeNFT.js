@@ -1,4 +1,4 @@
-const { weiToEthUsd } = require('./convert')
+const { weiToEthUsd } = require('./convertWei')
 const order2 = require('../orders/order2')
 
 
@@ -21,7 +21,7 @@ const order2 = require('../orders/order2')
 
 // console.log(order0.order0.asset.image_thumbnail_url)
 
-const createSprite = (json) => {
+const makeSprite = (json) => {
   let obj = Object.keys(json)[0]
   //gets the NFT thumbnail
   console.log(json[obj].asset.name)
@@ -33,4 +33,4 @@ const createSprite = (json) => {
 
 console.log(order2)
 
-createSprite(order2)
+makeSprite(order2)
