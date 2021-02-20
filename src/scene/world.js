@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import EventDispatcher from '../helpers/eventDispatcher.js'
+import testNFT from '../helpers/makeNFT'
 
 /**
  * 
@@ -152,12 +153,11 @@ export default class World extends Phaser.Scene {
     })
 
  
-    const spawnNFT = (obj) => {
+    const spawnNFT = (obj, url) => {
       let nft = this.physics.add.sprite(0, 0, obj);
 
       // Set NFT Data
-      let openLink = function(permalink) {
-        let url = 'https://opensea.io/assets/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/21000765';
+      let openLink = function() {
         let action = window.open(url, '_blank');
         if (action && action.focus) {
           action.focus();
@@ -188,27 +188,39 @@ export default class World extends Phaser.Scene {
       this.physics.add.collider(nft, this.kball)
     }
   
-    spawnNFT('nft1');
+    // spawnNFT('nft1');
     // spawnNFT('nft2');
     // spawnNFT('nft3');
-    spawnNFT('nft4');
+    // spawnNFT('nft4');
 
 
+      //   this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
+
+      //   this.load.once('complete', (x) => { 
+      //     this.nft6 = this.add.sprite(-50, 80, 'nft6')
+      //     this.nft6.setScale(0.5)
+      //     this.katamari.add(this.nft6)   
+      //   })
+      // this.load.start()
     
     // Async loading
-      // this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
+    const loadNFT = (obj) => {
+      const thing = obj.name
+      this.load.image(`'${obj.name}'`, `${obj.thumbnail}`)
+      
+      this.load.once('complete', () => { 
+        this.thing = this.add.sprite(0, 0, `'${obj.name}'`)
+        // this.katamari.add(obj.name)
+        spawnNFT(`'${obj.name}'`, obj.perma)
+      })
+      this.load.start()
+    }
 
-      // this.load.once('complete', (x) => { 
-      //   this.nft6 = this.add.sprite(-50, 80, 'nft6')
-      //   this.nft6.setScale(0.5)
-      //   this.katamari.add(this.nft6)   
-      // })
-      // this.load.start()
-
-      // // this.katamari.fixedToCamera(cam)
+    loadNFT(testNFT)
+      // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
 
-    }
+  }
     
     update() {
       
