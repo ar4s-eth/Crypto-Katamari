@@ -189,6 +189,7 @@ export default class World extends Phaser.Scene {
       // Register a handle for when the user clicks
       nft.on('pointerup', (() => {
         emitter.emit("LOAD_INFO", obj)
+        console.log(obj)
       }), this)
 
       // Register a handler for mouse hover

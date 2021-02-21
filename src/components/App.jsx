@@ -47,7 +47,7 @@ export default function App(props) {
 	
   return(
     <>
-      <div>
+
         <InfoHUD
         info={info}
         />
@@ -59,7 +59,7 @@ export default function App(props) {
             nft={nft}
           />
         </div>
-      </div>
+
     </>
     )
   }
