@@ -189,6 +189,7 @@ export default class World extends Phaser.Scene {
       // Register a handle for when the user clicks
       nft.on('pointerup', (() => {
         emitter.emit("LOAD_INFO", obj)
+        console.log(obj)
       }), this)
 
       // Register a handler for mouse hover
@@ -243,7 +244,13 @@ export default class World extends Phaser.Scene {
       this.load.start()
     }
 
-    loadNFT(testNFT)
+    let foo = 0
+    setInterval(function(){
+      console.log(foo)
+      loadNFT(testNFT);
+      foo++
+    }, 3000);
+    
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
 
