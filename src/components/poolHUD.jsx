@@ -10,11 +10,12 @@ import dai from '../assets/icons/dai_icon.svg'
 
 
 export default function PoolHUD(props) {	
-  const [ score, setScore ] = useState(0)
 
-	let increment = (x) => {
-		setScore(x + 1)
-	}
+  // const [ score, setScore ] = useState(0)
+
+	// let increment = (x) => {
+	// 	setScore(x + 1)
+	// }
 
   return (
 		<div className='katamari'>

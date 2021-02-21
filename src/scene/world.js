@@ -141,14 +141,14 @@ export default class World extends Phaser.Scene {
     // Add sprites to the katamari with collision
     this.physics.world.on('collide', (sprite, obj) => {
       if (sprite.body.immovable === false && obj.body.immovable === false) {
+
         sprite.body.enable = 0
         this.katamari.add(sprite)
         sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         sprite.y = Math.round(Math.random() * 2 - 1) * Math.floor(150)
         emitter.emit("AND_1", 1)
-        console.log(`world emitter`, emitter.emit)
-        // console.log(`this is sprite`, sprite)
-        // console.log(`this is image`, obj)
+        console.log(`collision emitter`, emitter.emit)
+
       }
     })
 
@@ -180,19 +180,32 @@ export default class World extends Phaser.Scene {
 
       }
 
-
       // Set Physics
       nft.setGravityY(100)
       nft.setBounce(0.3)
       nft.setScale(0.5)
+
+
       // Register a handle for when the user clicks
-      nft.on('pointerup', openLink, this)
+      nft.on('pointerup', (() => {
+        emitter.emit("LOAD_INFO", obj)
+      }), this)
+
       // Register a handler for mouse hover
       nft.on('pointerover', function() {
         console.log('hover');
-      }, this
-      )
+      }, this)
       nft.setInteractive()
+      
+      // // Register a handle for when the user clicks
+      // nft.on('pointerup', openLink, this)
+      // // Register a handler for mouse hover
+      // nft.on('pointerover', function() {
+      //   console.log('hover');
+      // }, this)
+      // nft.setInteractive()
+
+      
       this.cloud.add(nft)
       this.physics.add.collider(nft, this.ground)
       this.physics.add.collider(nft, this.kball)

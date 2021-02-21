@@ -11,6 +11,7 @@ import game from './game.js'
 // Components
 import PoolHUD from './PoolHUD.jsx'
 import PoolTab from './PoolTab.jsx'
+import InfoHUD from './InfoHUD.jsx'
 import { Scene } from "phaser";
 
 
@@ -18,12 +19,22 @@ export default function App(props) {
   const [ dai, setDai ] = useState(null);
   const [ eth, setEth ] = useState(null);
   const [ nft, setNft ] = useState(0)
+  const [ info, setInfo ] = useState('')
 
   // Update the NFT count
   useEffect(() => {
     const listener = EventDispatcher.getInstance()
-    listener.on("AND_1", e => setNft((prev) => prev + e))    
+    listener.on("AND_1", oneUp => setNft((prev) => prev + oneUp))    
   }, [])
+
+  // Update the infoHUD
+  useEffect(() => {
+    const listener = EventDispatcher.getInstance()
+    listener.on("LOAD_INFO", data => setInfo(() => data)
+    )
+  }, [])
+
+  console.log(`from app`, info)
   
   // Fetch poolTogether Data
   useEffect(() => {
@@ -36,16 +47,19 @@ export default function App(props) {
 	
   return(
     <>
-    <div>
-      <PoolTab />
-      <div className='universe'>
-        <PoolHUD
-          eth={eth}
-          dai={dai}
-          nft={nft}
+      <div>
+        <InfoHUD
+        info={info}
         />
+        <PoolTab />
+        <div className='universe'>
+          <PoolHUD
+            eth={eth}
+            dai={dai}
+            nft={nft}
+          />
+        </div>
       </div>
-    </div>
     </>
     )
   }
