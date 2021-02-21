@@ -244,7 +244,13 @@ export default class World extends Phaser.Scene {
       this.load.start()
     }
 
-    loadNFT(testNFT)
+    let foo = 0
+    setInterval(function(){
+      console.log(foo)
+      loadNFT(testNFT);
+      foo++
+    }, 3000);
+    
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
 
