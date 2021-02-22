@@ -380,3 +380,6 @@ module.exports = {
   order198,
   order199
 }
+
+//This is for bugtesting later on if we delete an order file
+console.log(module.exports);
