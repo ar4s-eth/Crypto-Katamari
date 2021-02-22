@@ -7,12 +7,9 @@ const order6 = require('./order6');
 const order7 = require('./order7');
 const order9 = require('./order9');
 const order10 = require('./order10');
-const order11 = require('./order11');
 const order12 = require('./order12');
 const order13 = require('./order13');
-const order14 = require('./order14');
 const order15 = require('./order15');
-const order16 = require('./order16');
 const order17 = require('./order17');
 const order18 = require('./order18');
 const order19 = require('./order19');
@@ -21,8 +18,6 @@ const order21 = require('./order21');
 const order22 = require('./order22');
 const order23 = require('./order23');
 const order24 = require('./order24');
-const order25 = require('./order25');
-const order26 = require('./order26');
 const order27 = require('./order27');
 const order28 = require('./order28');
 const order29 = require('./order29');
@@ -43,7 +38,6 @@ const order43 = require('./order43');
 const order44 = require('./order44');
 const order45 = require('./order45');
 const order46 = require('./order46');
-const order47 = require('./order47');
 const order48 = require('./order48');
 const order49 = require('./order49');
 const order50 = require('./order50');
@@ -55,17 +49,14 @@ const order55 = require('./order55');
 const order56 = require('./order56');
 const order57 = require('./order57');
 const order58 = require('./order58');
-const order59 = require('./order59');
 const order60 = require('./order60');
 const order61 = require('./order61');
 const order62 = require('./order62');
 const order63 = require('./order63');
 const order64 = require('./order64');
 const order65 = require('./order65');
-const order66 = require('./order66');
 const order67 = require('./order67');
 const order68 = require('./order68');
-const order69 = require('./order69');
 const order70 = require('./order70');
 const order71 = require('./order71');
 const order72 = require('./order72');
@@ -78,7 +69,6 @@ const order78 = require('./order78');
 const order79 = require('./order79');
 const order80 = require('./order80');
 const order81 = require('./order81');
-const order82 = require('./order82');
 const order83 = require('./order83');
 const order84 = require('./order84');
 const order85 = require('./order85');
@@ -94,10 +84,8 @@ const order94 = require('./order94');
 const order95 = require('./order95');
 const order96 = require('./order96');
 const order98 = require('./order98');
-const order99 = require('./order99');
 const order100 = require('./order100');
 const order101 = require('./order101');
-const order102 = require('./order102');
 const order103 = require('./order103');
 const order104 = require('./order104');
 const order105 = require('./order105');
@@ -143,7 +131,6 @@ const order147 = require('./order147');
 const order148 = require('./order148');
 const order149 = require('./order149');
 const order150 = require('./order150');
-const order151 = require('./order151');
 const order152 = require('./order152');
 const order153 = require('./order153');
 const order154 = require('./order154');
@@ -163,7 +150,6 @@ const order167 = require('./order167');
 const order168 = require('./order168');
 const order169 = require('./order169');
 const order170 = require('./order170');
-const order172 = require('./order172');
 const order173 = require('./order173');
 const order175 = require('./order175');
 const order176 = require('./order176');
@@ -200,12 +186,9 @@ module.exports = {
   order7,
   order9,
   order10,
-  order11,
   order12,
   order13,
-  order14,
   order15,
-  order16,
   order17,
   order18,
   order19,
@@ -214,8 +197,6 @@ module.exports = {
   order22,
   order23,
   order24,
-  order25,
-  order26,
   order27,
   order28,
   order29,
@@ -236,7 +217,6 @@ module.exports = {
   order44,
   order45,
   order46,
-  order47,
   order48,
   order49,
   order50,
@@ -248,17 +228,14 @@ module.exports = {
   order56,
   order57,
   order58,
-  order59,
   order60,
   order61,
   order62,
   order63,
   order64,
   order65,
-  order66,
   order67,
   order68,
-  order69,
   order70,
   order71,
   order72,
@@ -271,7 +248,6 @@ module.exports = {
   order79,
   order80,
   order81,
-  order82,
   order83,
   order84,
   order85,
@@ -287,10 +263,8 @@ module.exports = {
   order95,
   order96,
   order98,
-  order99,
   order100,
   order101,
-  order102,
   order103,
   order104,
   order105,
@@ -336,7 +310,6 @@ module.exports = {
   order148,
   order149,
   order150,
-  order151,
   order152,
   order153,
   order154,
@@ -356,7 +329,6 @@ module.exports = {
   order168,
   order169,
   order170,
-  order172,
   order173,
   order175,
   order176,
@@ -382,4 +354,4 @@ module.exports = {
 }
 
 //This is for bugtesting later on if we delete an order file
-console.log(module.exports);
+// console.log(module.exports);
