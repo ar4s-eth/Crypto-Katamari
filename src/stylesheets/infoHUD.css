@@ -1,5 +1,7 @@
 .infoHUD {
   position: absolute;
+  font-family: 'Roboto Slab', serif;
+  color: #333;
   right: 0px;
   bottom: 0%;
   height: 300px;
