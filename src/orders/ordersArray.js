@@ -8,7 +8,8 @@ for (const order in orders) {
     ordersArray.push({ 
       eth_price: weiToEthUsd(orders[order][order].current_price, 0),
       usd_price: weiToEthUsd(orders[order][order].current_price, 1),
-      thumbnail: orders[order][order].asset.image_thumbnail_url,
+      image_thumbnail: orders[order][order].asset.image_thumbnail_url,
+      image_preview: orders[order][order].asset.image_preview_url,
       image: orders[order][order].asset.image_url,
       name: orders[order][order].asset.name,
       perma: orders[order][order].asset.permalink,

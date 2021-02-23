@@ -227,15 +227,25 @@ export default class World extends Phaser.Scene {
     // Async loading
     const loadNFT = (obj) => {
       
+    //   name: order.name,
+    // thumbnail: order.thumbnail,
+    // animation: order.animation,
+    // image_thumbnail: order.image_thumbnail,
+    // image_preview: order.image_preview,
+    // perma: order.perma,
+    // eth_price: order.eth_price, 
+    // usd_price: order.usd_price
+
       const nftName = obj.name
-      const nftThumb = obj.thumbnail
+      const nftThumbnail = obj.image_thumbnail
+      const nftPreview = obj.image_preview
       const nftPerma = obj.perma
       const nftAnimation = obj.animation
       const nftImage = obj.image
       const nftPriceETH = obj.eth_price
       const nftPriceUSD = obj.usd_price
 
-      this.load.image(`'${nftName}'`, `${nftThumb}`)
+      this.load.image(`'${nftName}'`, `${nftPreview}`)
       
       this.load.once('complete', () => { 
         this.nftName = this.add.sprite(0, 0, `'${nftName}'`)
@@ -245,12 +255,13 @@ export default class World extends Phaser.Scene {
       this.load.start()
     }
 
-    let foo = 0
+    let orderIncrementer = 0
     setInterval(function(){
-      // console.log(ordersArray[0]);
-      // console.log(foo)
-      loadNFT(ordersArray[foo]);
-      foo++
+      orderIncrementer === ordersArray.length ?
+      orderIncrementer = 0 :
+        console.log(`Order ${orderIncrementer} of ${ordersArray.length}`)
+        loadNFT(ordersArray[orderIncrementer]);
+        orderIncrementer++;
     }, 5000);
     
       // this.katamari.fixedToCamera(cam)
