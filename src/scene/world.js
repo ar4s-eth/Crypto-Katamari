@@ -92,20 +92,21 @@ export default class World extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, width * width, height)
 
     // Reference for the object body/physics
-    let kballCenter = 62
+    let kballSize = 630
+    let kballCentre = 
     
     // Load the "kball" & add physics
-    this.kball = this.physics.add.image(120, 100, 'kball');
+    this.kball = this.physics.add.image(0, 0, 'kball');
     
     // Set kball's body as a circle to it's circumference 
-    this.kball.body.setCircle(255, kballCenter, kballCenter)
+    this.kball.body.setCircle(kballSize / Math.PI, Math.PI, Math.PI)
 
     // kball physics
     this.kball.setGravityY(100)
     this.kball.setBounce(0.4)
 
     // Scale the kball
-    this.kballScale = 0.2
+    this.kballScale = 1
     this.kball.setScale(this.kballScale)
 
     // Set collide for kball
