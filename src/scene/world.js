@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import EventDispatcher from '../helpers/eventDispatcher.js'
-import testNFT from '../helpers/makeNFT'
+import makeNFT from '../helpers/makeNFT'
+import { ordersArray } from '../orders/ordersArray';
 
 /**
  * 
@@ -243,10 +244,11 @@ export default class World extends Phaser.Scene {
 
     let foo = 0
     setInterval(function(){
-      console.log(foo)
-      loadNFT(testNFT);
+      console.log(ordersArray[0]);
+      // console.log(foo)
+      loadNFT(ordersArray[foo]);
       foo++
-    }, 3000);
+    }, 5000);
     
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
