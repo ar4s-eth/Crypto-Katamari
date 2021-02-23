@@ -276,11 +276,20 @@ export default class World extends Phaser.Scene {
 
     let foo = 0
     setInterval(function(){
+<<<<<<< HEAD
       // console.log(ordersArray[0]);
       // console.log(foo)
       loadNFT(ordersArray[foo]);
       foo++
     }, 5000);
+=======
+      orderIncrementer === ordersArray.length ?
+      orderIncrementer = 0 :
+        console.log(`Order ${orderIncrementer} of ${ordersArray.length}`)
+        loadNFT(ordersArray[orderIncrementer]);
+        orderIncrementer++;
+    }, 500);
+>>>>>>> 84c2ef5d2d166a78b5d55f664756e1293dd0d7c7
     
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();

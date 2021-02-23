@@ -12,7 +12,7 @@
 
 const weiToEthUsd = (wei, usdBool) => {
   const eth = wei * 0.000000000000000001;
-  const usd = 1500;
+  const usd = 1483.79;
 
   return usdBool ? `$${(eth * usd).toFixed(2)}` : `${eth.toFixed(3)}`;
 };
