@@ -93,18 +93,26 @@ export default class World extends Phaser.Scene {
 
     // Sizing and centering of the kball
 
-    this.kball = this.physics.add.image(0, 0, 'kball');
     this.kballSize = 300
-    this.kball.displayWidth = this.kballSize 
-    this.kball.displayHeight = this.kballSize 
-    this.kball.height = this.kballSize
-    this.kball.width = this.kballSize
-    this.kballRadius = this.kball.width / 2;
-    this.kball.body.setCircle(
-      this.kballRadius,
-      (-this.kballRadius + 0.5 * this.kball.width / this.kball.scaleX),
-      (-this.kballRadius + 0.5 * this.kball.height / this.kball.scaleY)
-    );
+    this.kball = this.physics.add.image(0, 0, 'kball')
+    this.kball.body.setSize(this.kballSize, this.kballSize, true)
+    this.kball.setDisplaySize(300, 300)
+    // this.kball.setScale(0.2)
+
+    // Setting kball body to be a circle
+    // this.kball = this.physics.add.image(0, 0, 'kball');
+    // this.events.on('collide', () => {this.kballSize.update += 100}, this.kballSize);
+    // console.log(`create kballsize`, this.kballSize)
+    // this.kball.displayWidth = this.kballSize 
+    // this.kball.displayHeight = this.kballSize 
+    // this.kball.height = this.kballSize
+    // this.kball.width = this.kballSize
+    // this.kballRadius = this.kball.width / 2;
+    // this.kball.body.setCircle(
+    //   this.kballRadius,
+    //   (-this.kballRadius + 0.5 * this.kball.width / this.kball.scaleX),
+    //   (-this.kballRadius + 0.5 * this.kball.height / this.kball.scaleY)
+    // );
 
     // kball physics
     this.kball.setGravityY(100)
@@ -135,10 +143,7 @@ export default class World extends Phaser.Scene {
     this.cloud
     this.cloud = this.add.container(width, 0)
 
-    // Initialize the infoHUD
-    // this.infoHUD
-    // this.infoHUD = this.add.container(800, 800)
-    // this.infoHUD.add.image(0, 0, 'nft3')
+
     
     // Ground initialization and settings
     this.groundX = this.sys.game.config.width / 2;
@@ -151,8 +156,18 @@ export default class World extends Phaser.Scene {
   
     this.physics.add.collider(this.kball, this.ground)
     this.ground.setImmovable();
+
+    // Making a world bounds
     
+    this.physics.world.setBounds( 0, 0, 1920, 1080, false, true, true, true );
+    console.log(`world bounds`, this.physics.world)
+
+    // this.physics.world.setBoundsCollision(0, 0, 0, 1)
+    this.physics.add.collider(this.kball, this.physics.world.bounds)
+
+    console.log(`world bounds`, this.physics.world.bounds)
     
+    this.ping = 1
     // Add sprites to the katamari with collision
     this.physics.world.on('collide', (sprite, obj) => {
       if (sprite.body.immovable === false && obj.body.immovable === false) {
@@ -160,6 +175,7 @@ export default class World extends Phaser.Scene {
         sprite.body.enable = 0
         this.katamari.add(sprite)
         this.katamariDimension = this.kballRadius / 2
+        this.katamariDimension = this.kballSize / 2
         sprite.x = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
         console.log(`sprite.x`, sprite.x)
         sprite.y = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
@@ -168,9 +184,22 @@ export default class World extends Phaser.Scene {
         sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
         emitter.emit("AND_1", 1)
 
-        this.kballSize += 100
+        this.kball.body.y += 20
+        this.kballSize += 10
 
-        console.log(`scoped size`, this.kballSize)
+        // this.kball.body.setSize(this.kballSize, this.kballSize, true)
+        this.kball.setDisplaySize(this.kballSize, this.kballSize)
+        console.log(`ping`, this.kballSize)
+
+
+        // this.kballSize.setDisplaySize(this.kballSize +100, this.kballSize +100)
+        // this.kball.refreshBody()
+        // this.events.on('collide', () => {this.kballSize += 100
+        // console.log(`increase body size`)}, this.kballSize);
+       
+ 
+
+        // console.log(`collision`, this.kball)
         // this.katamariChildren = this.katamari.count()
         // console.log(`collision emitter`, emitter.emit);
         
@@ -227,25 +256,15 @@ export default class World extends Phaser.Scene {
     // Async loading
     const loadNFT = (obj) => {
       
-    //   name: order.name,
-    // thumbnail: order.thumbnail,
-    // animation: order.animation,
-    // image_thumbnail: order.image_thumbnail,
-    // image_preview: order.image_preview,
-    // perma: order.perma,
-    // eth_price: order.eth_price, 
-    // usd_price: order.usd_price
-
       const nftName = obj.name
-      const nftThumbnail = obj.image_thumbnail
-      const nftPreview = obj.image_preview
+      const nftThumb = obj.thumbnail
       const nftPerma = obj.perma
       const nftAnimation = obj.animation
       const nftImage = obj.image
       const nftPriceETH = obj.eth_price
       const nftPriceUSD = obj.usd_price
 
-      this.load.image(`'${nftName}'`, `${nftPreview}`)
+      this.load.image(`'${nftName}'`, `${nftThumb}`)
       
       this.load.once('complete', () => { 
         this.nftName = this.add.sprite(0, 0, `'${nftName}'`)
@@ -255,13 +274,12 @@ export default class World extends Phaser.Scene {
       this.load.start()
     }
 
-    let orderIncrementer = 0
+    let foo = 0
     setInterval(function(){
-      orderIncrementer === ordersArray.length ?
-      orderIncrementer = 0 :
-        console.log(`Order ${orderIncrementer} of ${ordersArray.length}`)
-        loadNFT(ordersArray[orderIncrementer]);
-        orderIncrementer++;
+      // console.log(ordersArray[0]);
+      // console.log(foo)
+      loadNFT(ordersArray[foo]);
+      foo++
     }, 5000);
     
       // this.katamari.fixedToCamera(cam)
@@ -272,8 +290,9 @@ export default class World extends Phaser.Scene {
       // console.log(`katamari size`, this.katamariBounds.height)
     }
     
+    
     update() {
-           
+      
       // Global 
       this.kballSpeed += 0.2
 
@@ -299,7 +318,7 @@ export default class World extends Phaser.Scene {
       //     }
       //     cam.scrollX = speed
 
-      this.kballSize +
+      
       // Katamari
       // this.katamari.fixedToCamera(cam)
       this.cameras.main.startFollow(this.katamari)
@@ -313,6 +332,7 @@ export default class World extends Phaser.Scene {
       
       
       // Kball movement
+      this.kball.rotation += 0.02
       
       // this.kball.setAngularVelocity(0.5)
       // this.kball.angularVelocity += 1
@@ -320,15 +340,14 @@ export default class World extends Phaser.Scene {
       // this.kball.body.setAngularVelocity(0.5)
       // this.kball.body.setVelocityX(0.5)
       
-      this.kball.setDrag(1);
+      this.kball.setDrag(0);
       
       if (this.cursors.right.isDown) {
-        this.kballSpeed = this.kball.setVelocity(200)
-        this.kball.rotation += 0.02
+        this.kballSpeed = this.kball.setVelocityX(200)
         // console.log(`inside if`, this.kballSpeed)
       } else if (this.cursors.left.isDown) {
         this.kballSpeed = this.kball.setVelocity(-200)
-        this.kball.rotation -= 0.02
+        // this.kball.rotation -= 0.02
       }
 
 

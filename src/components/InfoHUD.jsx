@@ -55,7 +55,7 @@ export default function InfoHUD(props) {
   // Assign props
   let name = props.info.name;
   let animation = props.info.animation;
-  let image = props.info.thumbnail;
+  let image = props.info.image_preview;
   let perma = props.info.perma;
   let ethPrice = props.info.eth_price;
   let usdPrice = props.info.usd_price;
