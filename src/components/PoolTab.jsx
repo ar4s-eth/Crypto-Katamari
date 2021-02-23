@@ -9,6 +9,6 @@ import "../stylesheets/index.css";
 export default function PoolTab(props) {	
 
   return (
-    <h2>Hello, World!!!</h2>
+    <h2>Katamari</h2>
 	)
 }

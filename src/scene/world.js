@@ -84,6 +84,9 @@ export default class World extends Phaser.Scene {
     createLoop(this, totalWidth, 'ground', 1)
     createLoop(this, totalWidth, 'plants', 1.25)
 
+    // Zoom
+    // this.cameras.main.setZoom(2);
+
     // Controls how far you can go 
     this.cameras.main.setBounds(0, 0, width * width, height)
 
@@ -91,7 +94,7 @@ export default class World extends Phaser.Scene {
     let kballCenter = 62
     
     // Load the "kball" & add physics
-    this.kball = this.physics.add.image(100, 100, 'kball');
+    this.kball = this.physics.add.image(120, 100, 'kball');
     
     // Set kball's body as a circle to it's circumference 
     this.kball.body.setCircle(255, kballCenter, kballCenter)
@@ -101,7 +104,8 @@ export default class World extends Phaser.Scene {
     this.kball.setBounce(0.4)
 
     // Scale the kball
-    this.kball.setScale(0.5)
+    this.kballScale = 0.2
+    this.kball.setScale(this.kballScale)
 
     // Set collide for kball
     this.kball.body.onCollide = true
@@ -114,11 +118,16 @@ export default class World extends Phaser.Scene {
     
     // Create the katamari container && size it
     this.katamari = this.add.container(0, 0)
-    // this.katamari.setSize(0.01, 0.01)
+    this.katamariSize = 10
+    
+    this.katamariRadius = this.katamariSize / 2;
+    // this.katamari.x = this.katamariSize
+    // this.katamari.y = this.katamariSize
+    
     
     // Initialize the cloud
     this.cloud
-    this.cloud = this.add.container(900, 0)
+    this.cloud = this.add.container(width, 0)
 
     // Initialize the infoHUD
     // this.infoHUD
@@ -144,10 +153,20 @@ export default class World extends Phaser.Scene {
 
         sprite.body.enable = 0
         this.katamari.add(sprite)
-        sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(150)
-        sprite.y = Math.round(Math.random() * 2 - 1) * Math.floor(150)
+        // sprite.x = this.katamari.width * 100;
+        // sprite.y = this.katamari.height * 100;
+        // sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(this.katamariChildren);
+        sprite.x = Math.round(Math.random() * ((this.katamariSize * 10) - (-this.katamariSize) + 1) + (-this.katamariSize))
+        sprite.y = Math.round(Math.random() * ((this.katamariSize * 10) - (-this.katamariSize) + 1) + (-this.katamariSize))
+        sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
         emitter.emit("AND_1", 1)
-        console.log(`collision emitter`, emitter.emit)
+        this.katamariChildren = this.katamari.count()
+        console.log(`collision emitter`, emitter.emit);
+        
+        // Increase Katamari Size
+        // Phaser.Geom.Rectangle.Inflate(this.katamari, 128, 128)
+        console.log(`katamariChildren`, this.katamari.count())
+        console.log(`katamariSize`, this.katamariSize)
 
       }
     })
@@ -166,19 +185,15 @@ export default class World extends Phaser.Scene {
       
       let nft = this.physics.add.sprite(0, 0, `'${nftName}'`);
 
-      // Set NFT Data
-      let openLink = function() {
-        let action = window.open(nftPerma, '_blank');
-        if (action && action.focus) {
-          action.focus();
-        } else if (!action) {
-          window.location.href = nftPerma;
-        }
-      }
-
-      let hoverData = function() {
-
-      }
+      // // Set NFT Data
+      // let openLink = function() {
+      //   let action = window.open(nftPerma, '_blank');
+      //   if (action && action.focus) {
+      //     action.focus();
+      //   } else if (!action) {
+      //     window.location.href = nftPerma;
+      //   }
+      // }
 
       // Set Physics
       nft.setGravityY(100)
@@ -198,31 +213,13 @@ export default class World extends Phaser.Scene {
       }, this)
       nft.setInteractive()
       
-      // // Register a handle for when the user clicks
-      // nft.on('pointerup', openLink, this)
-      // // Register a handler for mouse hover
-      // nft.on('pointerover', function() {
-      //   console.log('hover');
-      // }, this)
-      // nft.setInteractive()
 
-      
+      // Cloud container drops NFT's
       this.cloud.add(nft)
       this.physics.add.collider(nft, this.ground)
       this.physics.add.collider(nft, this.kball)
     }
   
-
-
-      //   this.load.image('nft6', 'https://lh3.googleusercontent.com/6qf3TeSJkLRiA8yW0-7IT3BqIE4uwwYmW4G1vVEMGCKIDw-V2X9Ch0d45M--jGiZW51fgn_FbiKq2yM2OS3ZElvW=s128')
-
-      //   this.load.once('complete', (x) => { 
-      //     this.nft6 = this.add.sprite(-50, 80, 'nft6')
-      //     this.nft6.setScale(0.5)
-      //     this.katamari.add(this.nft6)   
-      //   })
-      // this.load.start()
-    
     // Async loading
     const loadNFT = (obj) => {
       
@@ -253,11 +250,14 @@ export default class World extends Phaser.Scene {
     
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
-
-  }
+      // this.katamariBounds = this.katamari.getBounds()
+      // this.katamari.setPosition(this.katamariBounds.x, this.katamariBounds.y);
+      // // this.katamariBounds.type = 1
+      // console.log(`katamari size`, this.katamariBounds.height)
+    }
     
     update() {
-      
+           
       // Global 
       this.kballSpeed = 0
       
@@ -284,8 +284,11 @@ export default class World extends Phaser.Scene {
       // this.katamari.fixedToCamera(cam)
       this.cameras.main.startFollow(this.katamari)
       this.katamari.rotation += 0.02
-      this.katamari.x = this.kball.body.position.x + 126
-      this.katamari.y = this.kball.body.position.y + 126
+      this.katamari.x = this.kball.body.position.x + 50;
+      this.katamari.y = this.kball.body.position.y + 50;
+      // this.katamari.height = 1;
+      // this.katamari.width = 1;
+
       // this.katamari.child.body.enable = false
       
       

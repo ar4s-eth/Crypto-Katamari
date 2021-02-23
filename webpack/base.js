@@ -14,7 +14,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
+				test: /\.(css|ttf)$/,
 				use: [{ loader: "style-loader" }, { loader: "css-loader" }],
 			},
 			{
@@ -37,6 +37,7 @@ module.exports = {
 				test: /\.(gif|png|jpe?g|svg|xml)$/i,
 				use: "file-loader",
 			},
+			// { test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.eot$/, loader: "file" },
 		],
 	},
 	plugins: [

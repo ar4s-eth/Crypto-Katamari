@@ -4,10 +4,16 @@
   bottom: 0%;
   height: 300px;
   width: 300px;
-  border: 3px solid #73AD21;
   padding: 10px;
 }
 
-#infoImage {
+#nftImage {
   position: relative;
+}
+
+#market {
+  position: absolute;
+  right:0px;
+  bottom: 0px;
+
 }
