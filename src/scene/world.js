@@ -257,10 +257,10 @@ export default class World extends Phaser.Scene {
     const loadNFT = (obj) => {
       
       const nftName = obj.name
-      const nftThumb = obj.thumbnail
+      const nftThumb = obj.image_thumbnail
       const nftPerma = obj.perma
       const nftAnimation = obj.animation
-      const nftImage = obj.image
+      const nftImage = obj.image_animation
       const nftPriceETH = obj.eth_price
       const nftPriceUSD = obj.usd_price
 
@@ -281,6 +281,7 @@ export default class World extends Phaser.Scene {
         console.log(`Order ${orderIncrementer} of ${ordersArray.length}`)
         loadNFT(ordersArray[orderIncrementer]);
         orderIncrementer++;
+        console.log(ordersArray[orderIncrementer]);
     }, 500);
     
       // this.katamari.fixedToCamera(cam)
