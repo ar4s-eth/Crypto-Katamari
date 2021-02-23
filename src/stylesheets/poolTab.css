@@ -1,12 +1,6 @@
-
-@font-face {
-  font-family: 'Katamari-serif';
-  src: url('../assets/fonts/katamari_serif.ttf') format('truetype');
-}
-
 h2 {
   position: absolute;
-  font-family: 'Katamari-serif', Fallback, sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 400%;
   right: 0px;
   width: 30%;
