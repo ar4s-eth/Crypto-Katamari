@@ -91,23 +91,24 @@ export default class World extends Phaser.Scene {
     // Controls how far you can go 
     this.cameras.main.setBounds(0, 0, width * width, height)
 
-    // Reference for the object body/physics
-    let kballSize = 630
-    let kballCentre = 
-    
-    // Load the "kball" & add physics
+    // Sizing and centering of the kball
+
     this.kball = this.physics.add.image(0, 0, 'kball');
-    
-    // Set kball's body as a circle to it's circumference 
-    this.kball.body.setCircle(kballSize / Math.PI, Math.PI, Math.PI)
+    this.kballSize = 300
+    this.kball.displayWidth = this.kballSize 
+    this.kball.displayHeight = this.kballSize 
+    this.kball.height = this.kballSize
+    this.kball.width = this.kballSize
+    this.kballRadius = this.kball.width / 2;
+    this.kball.body.setCircle(
+      this.kballRadius,
+      (-this.kballRadius + 0.5 * this.kball.width / this.kball.scaleX),
+      (-this.kballRadius + 0.5 * this.kball.height / this.kball.scaleY)
+    );
 
     // kball physics
     this.kball.setGravityY(100)
     this.kball.setBounce(0.4)
-
-    // Scale the kball
-    this.kballScale = 1
-    this.kball.setScale(this.kballScale)
 
     // Set collide for kball
     this.kball.body.onCollide = true
@@ -119,10 +120,13 @@ export default class World extends Phaser.Scene {
     this.katamari
     
     // Create the katamari container && size it
-    this.katamari = this.add.container(0, 0)
-    this.katamariSize = 10
-    
-    this.katamariRadius = this.katamariSize / 2;
+    this.katamari = this.add.container(this.kball.x, this.kball.y)
+  
+    console.log(`katamari`,this.katamari)
+
+
+    // this.katamariSize = this.kballSize 
+    // this.katamariRadius = this.katamariSize / 2;
     // this.katamari.x = this.katamariSize
     // this.katamari.y = this.katamariSize
     
@@ -155,23 +159,31 @@ export default class World extends Phaser.Scene {
 
         sprite.body.enable = 0
         this.katamari.add(sprite)
-        // sprite.x = this.katamari.width * 100;
-        // sprite.y = this.katamari.height * 100;
-        // sprite.x = Math.round(Math.random() * 2 - 1) * Math.floor(this.katamariChildren);
-        sprite.x = Math.round(Math.random() * ((this.katamariSize * 10) - (-this.katamariSize) + 1) + (-this.katamariSize))
-        sprite.y = Math.round(Math.random() * ((this.katamariSize * 10) - (-this.katamariSize) + 1) + (-this.katamariSize))
+        this.katamariDimension = this.kballRadius / 2
+        sprite.x = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
+        console.log(`sprite.x`, sprite.x)
+        sprite.y = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
+        console.log(`sprite.y`, sprite.y)
+      
         sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
         emitter.emit("AND_1", 1)
-        this.katamariChildren = this.katamari.count()
-        console.log(`collision emitter`, emitter.emit);
+
+        this.kballSize += 100
+
+        console.log(`scoped size`, this.kballSize)
+        // this.katamariChildren = this.katamari.count()
+        // console.log(`collision emitter`, emitter.emit);
         
         // Increase Katamari Size
         // Phaser.Geom.Rectangle.Inflate(this.katamari, 128, 128)
-        console.log(`katamariChildren`, this.katamari.count())
-        console.log(`katamariSize`, this.katamariSize)
+        // console.log(`katamariChildren`, this.katamari.count())
+        // console.log(`katamariSize`, this.katamariSize)
+        // console.log(`katamari position`, this.katamari)
 
       }
     })
+
+    console.log(`create level size`, this.kballSize)
 
  
     const spawnNFT = (obj) => {
@@ -187,16 +199,6 @@ export default class World extends Phaser.Scene {
       
       let nft = this.physics.add.sprite(0, 0, `'${nftName}'`);
 
-      // // Set NFT Data
-      // let openLink = function() {
-      //   let action = window.open(nftPerma, '_blank');
-      //   if (action && action.focus) {
-      //     action.focus();
-      //   } else if (!action) {
-      //     window.location.href = nftPerma;
-      //   }
-      // }
-
       // Set Physics
       nft.setGravityY(100)
       nft.setBounce(0.3)
@@ -206,12 +208,12 @@ export default class World extends Phaser.Scene {
       // Register a handle for when the user clicks
       nft.on('pointerup', (() => {
         emitter.emit("LOAD_INFO", obj)
-        console.log(obj)
+        // console.log(obj)
       }), this)
 
       // Register a handler for mouse hover
       nft.on('pointerover', function() {
-        console.log('hover');
+        // console.log('hover');
       }, this)
       nft.setInteractive()
       
@@ -245,7 +247,7 @@ export default class World extends Phaser.Scene {
 
     let foo = 0
     setInterval(function(){
-      console.log(ordersArray[0]);
+      // console.log(ordersArray[0]);
       // console.log(foo)
       loadNFT(ordersArray[foo]);
       foo++
@@ -262,8 +264,12 @@ export default class World extends Phaser.Scene {
     update() {
            
       // Global 
-      this.kballSpeed = 0
+      this.kballSpeed += 0.2
+
+      // console.log(`update level size`, this.kballSize)
       
+      // this.katamari.x = this.kball.x
+      // this.katamari.y = this.kball.y
     
       // console.log(`inside update kball`, this.kballSpeed)
       // console.log(`inside update`, this.katamariRotation)
@@ -282,13 +288,13 @@ export default class World extends Phaser.Scene {
       //     }
       //     cam.scrollX = speed
 
-
+      this.kballSize +
       // Katamari
       // this.katamari.fixedToCamera(cam)
       this.cameras.main.startFollow(this.katamari)
       this.katamari.rotation += 0.02
-      this.katamari.x = this.kball.body.position.x + 50;
-      this.katamari.y = this.kball.body.position.y + 50;
+      this.katamari.x = this.kball.x;
+      this.katamari.y = this.kball.y;
       // this.katamari.height = 1;
       // this.katamari.width = 1;
 

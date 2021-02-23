@@ -34,7 +34,7 @@ export default function App(props) {
     )
   }, [])
 
-  console.log(`from app`, info)
+  // console.log(`from app`, info)
   
   // Fetch poolTogether Data
   useEffect(() => {

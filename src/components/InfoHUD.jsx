@@ -11,7 +11,7 @@ export default function InfoHUD(props) {
 
   const [state, setState] = useState(props.info)
 
-  console.log(`upper state`, state)
+  // console.log(`upper state`, state)
   
   // useEffect(() => {
   //   if(props.info.name) {
@@ -62,8 +62,8 @@ export default function InfoHUD(props) {
   
    
   
-  console.log(`props.name`, props)
-  console.log(`state`, state)
+  // console.log(`props.name`, props)
+  // console.log(`state`, state)
   
   // if(state.name) {
     return (
