@@ -62,7 +62,7 @@ export default class World extends Phaser.Scene {
   create() {
 
     let emitter = EventDispatcher.getInstance();
-    console.log(emitter)
+    // console.log(emitter)
     
    
     //// World Logic
@@ -70,7 +70,7 @@ export default class World extends Phaser.Scene {
     // Setup Landscape & world dimensions
     const width = this.scale.width;
     const height = this.scale.height;
-    const totalWidth = width * 10 
+    const totalWidth = width * width 
 
     this.add.image(width * 0.5, height * 0.5, 'sky')
       .setScrollFactor(0)
@@ -290,7 +290,7 @@ export default class World extends Phaser.Scene {
       this.kball.setDrag(1);
       
       if (this.cursors.right.isDown) {
-        this.kballSpeed = this.kball.setVelocityX(200)
+        this.kballSpeed = this.kball.setVelocityX(1000)
         
         this.katamari.rotation += 0.02
         this.kball.rotation += 0.02
