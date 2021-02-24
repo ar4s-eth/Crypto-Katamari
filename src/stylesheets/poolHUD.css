@@ -31,10 +31,10 @@
 
 #pool_amount {
   font-family: 'Rationale', sans-serif;
-  color: black;
+  color:white;
   margin: -7% 10%;
   font-size: 2.5em;
-  text-shadow: white 1px 1px 1px;
+  text-shadow: black 1px 1px 1px;
  
 
   /* For creating hue animation for text  */

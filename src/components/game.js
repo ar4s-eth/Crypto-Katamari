@@ -15,7 +15,7 @@ export const config = {
 	scene: [ World ],
 	physics: {
     default: 'arcade',
-    arcade:{debug:true},
+    arcade:{debug:false},
   }
 };
 

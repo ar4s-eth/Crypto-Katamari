@@ -1,16 +1,18 @@
 .infoHUD {
   position: absolute;
   font-family: 'Roboto Slab', serif;
-  color: #333;
+  color: whitesmoke;
   right: 0px;
   bottom: 0%;
   height: 300px;
   width: 300px;
-  padding: 10px;
+  margin-right: 2.5%;
+  margin-bottom: 2.5%;
 }
 
 #nftImage {
   position: relative;
+
 }
 
 #market {

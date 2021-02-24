@@ -43,22 +43,18 @@ export default class World extends Phaser.Scene {
   preload() {
 
     // Landscape
-    this.load.image('sky', 'src/assets/landscapes/test/sky.png')
-    this.load.image('mountains', 'src/assets/landscapes/test/mountains.png')
-    this.load.image('plateau', 'src/assets/landscapes/test/plateau.png')
-    this.load.image('ground', 'src/assets/landscapes/test/ground.png')
-    this.load.image('plants', 'src/assets/landscapes/test/plant.png')
+    this.load.image('sky', 'src/assets/landscapes/sky.png')
+    this.load.image('clouds', 'src/assets/landscapes/clouds.png')
+    this.load.image('mountains', 'src/assets/landscapes/mountains.png')
+    this.load.image('forest', 'src/assets/landscapes/forest.png')
+    this.load.image('ground', 'src/assets/landscapes/ground.png')
+    this.load.image('plants', 'src/assets/landscapes/plants.png')
 
     this.cursors = this.input.keyboard.createCursorKeys()
 
     // Katamari
     this.load.image('kball', 'src/assets/sprites/kball.png');
-    this.load.image('nft1', 'src/assets/sprites/img_nft1.png')
-    this.load.image('nft2', 'src/assets/sprites/img_nft2.png');
-    this.load.image('nft3', 'src/assets/sprites/img_nft3.jpg');
-    this.load.image('ntf4', 'src/assets/sprites/img_nft4.png');
-    this.load.image('ntf5', 'src/assets/sprites/gif_nft.gif');
-    this.load.image('star', 'src/assets/sprites/img_nft6.png');
+
     
   }
   
@@ -79,9 +75,10 @@ export default class World extends Phaser.Scene {
     this.add.image(width * 0.5, height * 0.5, 'sky')
       .setScrollFactor(0)
 
-    // Create parallax layers
+    // // Create parallax layers
+    createLoop(this, totalWidth, 'clouds', 0.1)
     createLoop(this, totalWidth, 'mountains', 0.25)
-    createLoop(this, totalWidth, 'plateau', 0.5)
+    createLoop(this, totalWidth, 'forest', 0.5)
     createLoop(this, totalWidth, 'ground', 1)
     createLoop(this, totalWidth, 'plants', 1.25)
 
@@ -92,6 +89,7 @@ export default class World extends Phaser.Scene {
     // Sizing and centering of the kball
     
     this.kballSize = 300
+
     // Square kball
     // this.kball = this.physics.add.image(0, 0, 'kball').setCollideWorldBounds(true)
     // this.kball.body.setSize(this.kballSize, this.kballSize, true)
@@ -135,12 +133,13 @@ export default class World extends Phaser.Scene {
       // Initialize the cloud
       this.cloud
       this.cloud = this.add.container(width, 0)
+      // .setScrollFactor(this.scrollFactor)
       
       
       
       // Ground initialization and settings
       this.groundX = this.sys.game.config.width / 2;
-      this.groundY = this.sys.game.config.height * 0.90;
+      this.groundY = this.sys.game.config.height * 0.80;
       
       this.ground = this.physics.add.image(this.groundX, this.groundY)
       this.ground.setGravity(0)
@@ -154,7 +153,7 @@ export default class World extends Phaser.Scene {
       
       // Making a world bounds
       
-      this.physics.world.setBounds( 0, 0, 1920, this.groundY, false, true, true, true );
+      this.physics.world.setBounds( 0, 0, 1920, this.groundY, false, false, false, true );
       
       
       console.log(`world bounds`, this.physics.world.bounds)
@@ -190,7 +189,8 @@ export default class World extends Phaser.Scene {
       })
       
       // Zoom
-      this.cameras.main.setZoom(this.kballSize / 250);
+      
+      this.cameras.main.setZoom(1);
       console.log(`create level size`, this.kballSize)
       
       
@@ -208,7 +208,7 @@ export default class World extends Phaser.Scene {
       let nft = this.physics.add.sprite(0, 0, `'${nftName}'`);
 
       // Set Physics
-      nft.setGravityY(100)
+      nft.setGravityY(200)
       nft.setBounce(0.3)
       nft.setScale(0.5)
 
@@ -273,62 +273,30 @@ export default class World extends Phaser.Scene {
     
     
     update() {
-      
-      // Global 
-      this.kballSpeed += 0.2
-
-      // console.log(`update level size`, this.kballSize)
-      
-      // this.katamari.x = this.kball.x
-      // this.katamari.y = this.kball.y
-    
-      // console.log(`inside update kball`, this.kballSpeed)
-      // console.log(`inside update`, this.katamariRotation)
-      // Landscape
-      
-      // const cam = this.cameras.main
-      // cam.scrollX += speed
-      
-      // Manually scroll through the world 
-
-      // if (this.cursors.left.isDown) {
-      //     cam.scrollX -= speed
-      //   }
-      //   else if (this.cursors.right.isDown) {
-      //       cam.scrollX += speed
-      //     }
-      //     cam.scrollX = speed
-
-      
+            
       // Katamari
-      // this.katamari.fixedToCamera(cam)
-      this.cameras.main.startFollow(this.katamari)
-      this.katamari.rotation += 0.02
+      this.cam = this.cameras.main.startFollow(this.katamari)
       this.katamari.x = this.kball.x;
       this.katamari.y = this.kball.y;
-      // this.katamari.height = 1;
-      // this.katamari.width = 1;
 
-      // this.katamari.child.body.enable = false
+      this.cloud.x = 1920
+      this.cloud.y = 0
       
-      
+      this.zoom
+
       // Kball movement
-      this.kball.rotation += 0.02
-      
-      // this.kball.setAngularVelocity(0.5)
-      // this.kball.angularVelocity += 1
-      // this.kball.setVelocityX(0.2)
-      // this.kball.body.setAngularVelocity(0.5)
-      // this.kball.body.setVelocityX(0.5)
-      
-      this.kball.setDrag(0);
+      this.kball.setDrag(1);
       
       if (this.cursors.right.isDown) {
         this.kballSpeed = this.kball.setVelocityX(200)
+        
+        this.katamari.rotation += 0.02
+        this.kball.rotation += 0.02
         // console.log(`inside if`, this.kballSpeed)
       } else if (this.cursors.left.isDown) {
-        this.kballSpeed = this.kball.setVelocity(-200)
-        // this.kball.rotation -= 0.02
+        this.kballSpeed = this.kball.setVelocityX(-200)
+        this.katamari.rotation -= 0.02
+        this.kball.rotation -= 0.02
       }
 
 
