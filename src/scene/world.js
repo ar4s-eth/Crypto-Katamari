@@ -275,7 +275,7 @@ export default class World extends Phaser.Scene {
     update() {
             
       // Katamari
-      this.cam = this.cameras.main.startFollow(this.katamari)
+      // this.cam = this.cameras.main.startFollow(this.katamari)
       this.katamari.x = this.kball.x;
       this.katamari.y = this.kball.y;
 
@@ -284,17 +284,20 @@ export default class World extends Phaser.Scene {
       this.cloud.x = 1920
       this.cloud.y = 0
       
-      this.zoom
+      // Zoom Stuff
+      // this.zoom = this.kballSize
+      // this.cameras.main.setZoom(this.zoom);
+      // this.cameras.main.scrollX = this.kball.x - 400;
+      // this.cameras.main.scrollY = this.kball.y - 300;
 
       // Kball movement
       this.kball.setDrag(1);
       
       if (this.cursors.right.isDown) {
-        this.kballSpeed = this.kball.setVelocityX(1000)
+        this.kballSpeed = this.kball.setVelocityX(200)
         
         this.katamari.rotation += 0.02
         this.kball.rotation += 0.02
-        // console.log(`inside if`, this.kballSpeed)
       } else if (this.cursors.left.isDown) {
         this.kballSpeed = this.kball.setVelocityX(-200)
         this.katamari.rotation -= 0.02
