@@ -85,25 +85,23 @@ export default class World extends Phaser.Scene {
     createLoop(this, totalWidth, 'ground', 1)
     createLoop(this, totalWidth, 'plants', 1.25)
 
-    // Zoom
-    // this.cameras.main.setZoom(2);
-
+    
     // Controls how far you can go 
     this.cameras.main.setBounds(0, 0, width * width, height)
-
+    
     // Sizing and centering of the kball
-
+    
     this.kballSize = 300
     // Square kball
     // this.kball = this.physics.add.image(0, 0, 'kball').setCollideWorldBounds(true)
     // this.kball.body.setSize(this.kballSize, this.kballSize, true)
     // this.kball.setDisplaySize(300, 300)
     // this.kball.setScale(0.2)
-
+    
     // Setting kball body to be a circle
-    this.kball = this.physics.add.image(0, 0, 'kball').setCollideWorldBounds(true)
-    this.events.on('collide', () => {this.kballSize.update += 100}, this.kballSize);
-    console.log(`create kballsize`, this.kballSize)
+    this.kball = this.physics.add.image(120, 0, 'kball').setCollideWorldBounds(true)
+    // this.events.on('collide', () => {this.kballSize.update += 100}, this.kballSize);
+    // console.log(`create kballsize`, this.kballSize)
     this.kball.displayWidth = this.kballSize 
     this.kball.displayHeight = this.kballSize 
     this.kball.height = this.kballSize
@@ -113,88 +111,90 @@ export default class World extends Phaser.Scene {
       this.kballRadius,
       (-this.kballRadius + 0.5 * this.kball.width / this.kball.scaleX),
       (-this.kballRadius + 0.5 * this.kball.height / this.kball.scaleY)
-    );
-
-    // kball physics
-    this.kball.setGravityY(100)
-    this.kball.setBounce(0.4)
-
-    // Set collide for kball
-    this.kball.body.onCollide = true
-
-
-    //// Game Containers
-
-    // Initialize the katamari (invisible)
-    this.katamari
-    
-    // Create the katamari container && size it
-    this.katamari = this.add.container(this.kball.x, this.kball.y)
-  
-    console.log(`katamari`,this.katamari)
-    
-    
-    // Initialize the cloud
-    this.cloud
-    this.cloud = this.add.container(width, 0)
-
-
-    
-    // Ground initialization and settings
-    this.groundX = this.sys.game.config.width / 2;
-    this.groundY = this.sys.game.config.height * 0.90;
-
-    this.ground = this.physics.add.image(this.groundX, this.groundY)
-    this.ground.setGravity(0)
-    
-    this.ground.displayWidth=this.sys.game.config.width * width;
-  
-    this.physics.add.collider(this.kball, this.ground)
-    this.ground.setImmovable();
-
-    // this.physics.add.overlap(this.kball, this.ground)
-
-    // Making a world bounds
-    
-    this.physics.world.setBounds( 0, 0, 1920, this.groundY, false, true, true, true );
-    // console.log(`world bounds`, this.physics.world)
-
-    // this.physics.world.setBoundsCollision(0, 0, 0, 1)
-    // this.physics.add.collider(this.kball, this.physics.world.bounds)
-
-    console.log(`world bounds`, this.physics.world.bounds)
-    
-    this.ping = 1
-    // Add sprites to the katamari with collision
-    this.physics.world.on('collide', (sprite, obj) => {
-      if (sprite.body.immovable === false && obj.body.immovable === false) {
-
-        sprite.body.enable = 0
-        this.katamari.add(sprite)
-        this.katamariDimension = this.kballRadius / 2
-        this.katamariDimension = this.kballSize / 2
-        sprite.x = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
-        console.log(`sprite.x`, sprite.x)
-        sprite.y = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
-        console.log(`sprite.y`, sprite.y)
+      );
       
-        sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
-        emitter.emit("AND_1", 1)
-
-        this.kball.body.y += 20
-        this.kballSize += 10
-
-        // this.kball.body.setSize(this.kballSize, this.kballSize, true)
-        this.kball.setDisplaySize(this.kballSize, this.kballSize)
-        console.log(`ping`, this.kballSize)
-       
-      }
-    })
-
-    console.log(`create level size`, this.kballSize)
-
- 
-    const spawnNFT = (obj) => {
+      // kball physics
+      this.kball.setGravityY(100)
+      this.kball.setBounce(0.4)
+      
+      // Set collide for kball
+      this.kball.body.onCollide = true
+      
+      
+      //// Game Containers
+      
+      // Initialize the katamari (invisible)
+      this.katamari
+      
+      // Create the katamari container && size it
+      this.katamari = this.add.container(this.kball.x, this.kball.y)
+      
+      console.log(`katamari`,this.katamari)
+      
+      
+      // Initialize the cloud
+      this.cloud
+      this.cloud = this.add.container(width, 0)
+      
+      
+      
+      // Ground initialization and settings
+      this.groundX = this.sys.game.config.width / 2;
+      this.groundY = this.sys.game.config.height * 0.90;
+      
+      this.ground = this.physics.add.image(this.groundX, this.groundY)
+      this.ground.setGravity(0)
+      
+      this.ground.displayWidth=this.sys.game.config.width * width;
+      
+      this.physics.add.collider(this.kball, this.ground)
+      this.ground.setImmovable();
+      
+      
+      
+      // Making a world bounds
+      
+      this.physics.world.setBounds( 0, 0, 1920, this.groundY, false, true, true, true );
+      
+      
+      console.log(`world bounds`, this.physics.world.bounds)
+      
+      this.ping = 1
+      // Add sprites to the katamari with collision
+      this.physics.world.on('collide', (sprite, obj) => {
+        if (sprite.body.immovable === false && obj.body.immovable === false) {
+          
+          sprite.body.enable = 0
+          this.katamari.add(sprite)
+          this.katamariDimension = this.kballRadius / 2
+          this.katamariDimension = this.kballSize / 2
+          
+          sprite.x = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
+          console.log(`sprite.x`, sprite.x)
+          
+          sprite.y = Math.floor(Math.random() * (this.katamariDimension - (-this.katamariDimension) + 1) + (-this.katamariDimension))
+          console.log(`sprite.y`, sprite.y)
+          
+          sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
+          emitter.emit("AND_1", 1)
+          
+          this.kball.setScale(1)
+          
+          this.kballSize += 5
+          
+          // this.kball.body.setSize(this.kballSize, this.kballSize, true)
+          this.kball.setDisplaySize(this.kballSize, this.kballSize)
+          console.log(`ping`, this.kballSize)
+          
+        }
+      })
+      
+      // Zoom
+      this.cameras.main.setZoom(this.kballSize / 250);
+      console.log(`create level size`, this.kballSize)
+      
+      
+      const spawnNFT = (obj) => {
       
       // Object Data
       const nftName = obj.name
@@ -239,11 +239,11 @@ export default class World extends Phaser.Scene {
       const nftThumb = obj.image_thumbnail
       const nftPerma = obj.perma
       const nftAnimation = obj.animation
-      const nftImage = obj.image_animation
+      const nftImage = obj.image_preview
       const nftPriceETH = obj.eth_price
       const nftPriceUSD = obj.usd_price
 
-      this.load.image(`'${nftName}'`, `${nftThumb}`)
+      this.load.image(`'${nftName}'`, `${nftImage}`)
       
       this.load.once('complete', () => { 
         this.nftName = this.add.sprite(0, 0, `'${nftName}'`)
@@ -261,7 +261,7 @@ export default class World extends Phaser.Scene {
         loadNFT(ordersArray[orderIncrementer]);
         orderIncrementer++;
         // console.log(ordersArray[orderIncrementer]);
-    }, 500);
+    }, 2000);
     
       // this.katamari.fixedToCamera(cam)
       // this.cursors = this.input.keyboard.createCursorKeys();
