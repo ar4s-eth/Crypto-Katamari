@@ -279,6 +279,8 @@ export default class World extends Phaser.Scene {
       this.katamari.x = this.kball.x;
       this.katamari.y = this.kball.y;
 
+      
+
       this.cloud.x = 1920
       this.cloud.y = 0
       
