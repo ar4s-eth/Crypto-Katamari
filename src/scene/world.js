@@ -43,12 +43,12 @@ export default class World extends Phaser.Scene {
   preload() {
 
     // Landscape
-    this.load.image('sky', 'src/assets/landscapes/sky.png')
-    this.load.image('clouds', 'src/assets/landscapes/clouds.png')
-    this.load.image('mountains', 'src/assets/landscapes/mountains.png')
-    this.load.image('forest', 'src/assets/landscapes/forest.png')
-    this.load.image('ground', 'src/assets/landscapes/ground.png')
-    this.load.image('plants', 'src/assets/landscapes/plants.png')
+    this.load.image('sky', 'src/assets/landscapes/day_sky.png')
+    this.load.image('clouds', 'src/assets/landscapes/day_clouds.png')
+    this.load.image('mountains', 'src/assets/landscapes/day_mountains.png')
+    this.load.image('forest', 'src/assets/landscapes/day_forest.png')
+    this.load.image('ground', 'src/assets/landscapes/day_ground.png')
+    this.load.image('plants', 'src/assets/landscapes/day_plants.png')
 
     this.cursors = this.input.keyboard.createCursorKeys()
 
@@ -80,6 +80,7 @@ export default class World extends Phaser.Scene {
     createLoop(this, totalWidth, 'mountains', 0.25)
     createLoop(this, totalWidth, 'forest', 0.5)
     createLoop(this, totalWidth, 'ground', 1)
+    // this.kball = this.physics.add.image(120, 0, 'kball').setCollideWorldBounds(true)
     createLoop(this, totalWidth, 'plants', 1.25)
 
     
@@ -205,7 +206,8 @@ export default class World extends Phaser.Scene {
       const nftPriceETH = obj.eth_price
       const nftPriceUSD = obj.usd_price
       
-      let nft = this.physics.add.sprite(0, 0, `'${nftName}'`);
+      // let nft = this.physics.add.sprite(0, 0, `'${nftName}'`);
+      let nft = this.physics.add.sprite(this.kball.x + 500, 0, `'${nftName}'`);
 
       // Set Physics
       nft.setGravityY(200)
@@ -227,7 +229,7 @@ export default class World extends Phaser.Scene {
       
 
       // Cloud container drops NFT's
-      this.cloud.add(nft)
+      // this.cloud.add(nft)
       this.physics.add.collider(nft, this.ground)
       this.physics.add.collider(nft, this.kball)
     }
@@ -263,19 +265,13 @@ export default class World extends Phaser.Scene {
         // console.log(ordersArray[orderIncrementer]);
     }, 2000);
     
-      // this.katamari.fixedToCamera(cam)
-      // this.cursors = this.input.keyboard.createCursorKeys();
-      // this.katamariBounds = this.katamari.getBounds()
-      // this.katamari.setPosition(this.katamariBounds.x, this.katamariBounds.y);
-      // // this.katamariBounds.type = 1
-      // console.log(`katamari size`, this.katamariBounds.height)
     }
     
     
     update() {
             
       // Katamari
-      // this.cam = this.cameras.main.startFollow(this.katamari)
+      this.cam = this.cameras.main.startFollow(this.katamari)
       this.katamari.x = this.kball.x;
       this.katamari.y = this.kball.y;
 
