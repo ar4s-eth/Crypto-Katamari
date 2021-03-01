@@ -4,7 +4,7 @@ CryptoKatamari is a Pooltogether lottery visualization project built on Phaser 3
 
 # The HUD
 
-!["SPA"](https://github.com/ar4sdoteth/Crypto-Katamari/src/assets/images/cryptokatamari_main.gif)
+!["SPA"](https://github.com/ar4sdoteth/Crypto-Katamari/blob/master/src/assets/images/cryptokatamari_main.gif)
 
 It utilizes the followinng template:
  [Phaser 3 Template](https://github.com/photonstorm/phaser3-project-template), this boilerplate gives you Phaser and React out of the box. Full details on [Integrating React and Phaser 3 Tutorial](https://medium.com/@Tnodes/integrating-react-and-phaser-3-tutorial-eb96717d4a9d).
