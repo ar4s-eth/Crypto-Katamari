@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import EventDispatcher from '../helpers/eventDispatcher.js'
 import makeNFT from '../helpers/makeNFT'
 import { ordersArray } from '../orders/ordersArray';
-
+let rightPressed = 0 
 /**
  * 
  * @param {Phaser.Scene} scene 
@@ -177,8 +177,8 @@ export default class World extends Phaser.Scene {
           
           sprite.angle = Math.round(Math.random() * (180 - (-180) + 1) + (-180))
           emitter.emit("AND_1", 1)
-          
-          this.kball.setScale(1)
+          this.kScale = 0.9
+          this.kball.setScale(1 - this.kScale)
           
           this.kballSize += 5
           
@@ -263,11 +263,12 @@ export default class World extends Phaser.Scene {
         loadNFT(ordersArray[orderIncrementer]);
         orderIncrementer++;
         // console.log(ordersArray[orderIncrementer]);
-    }, 2000);
+    }, 3000);
     
-    }
-    
-    
+  }
+  
+  
+
     update() {
             
       // Katamari
@@ -288,16 +289,23 @@ export default class World extends Phaser.Scene {
 
       // Kball movement
       this.kball.setDrag(1);
-      
       if (this.cursors.right.isDown) {
+        rightPressed = 1
+      } 
+      if(rightPressed === 1) {
         this.kballSpeed = this.kball.setVelocityX(200)
-        
         this.katamari.rotation += 0.02
         this.kball.rotation += 0.02
-      } else if (this.cursors.left.isDown) {
-        this.kballSpeed = this.kball.setVelocityX(-200)
-        this.katamari.rotation -= 0.02
-        this.kball.rotation -= 0.02
+      }
+      console.log(`rpress`, rightPressed)
+      
+      if (this.cursors.left.isDown) {
+        this.scene.pause('world')
+      } 
+      
+      if (this.cursors.down.isDown) {
+        his.scene.launch('world')
+        this.scene.resume('world')
       }
 
 
